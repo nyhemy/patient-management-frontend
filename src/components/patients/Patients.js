@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import loadImg from '../ajax-loader.gif';
 import Patient from '../patient/Patient';
+import styles from './Patients.module.css';
 
 const axios = require('axios').default;
 
@@ -37,25 +38,28 @@ const Patients = () => {
   };
 
   return (
-    <div>
+    <div className={styles.center}>
       <h2>Patients</h2>
-      {error && <h3>{error}</h3>}
-      <div>
+      {error && <h3 className={styles.error}>{error}</h3>}
+      <div className={styles.row}>
         {loading
           ? <img src={loadImg} alt="loading..." />
           : !error && (
           <>
             <div><button type="button" onClick={createPatient}>Create</button></div>
-            {patients.map((data) => (
-              <div key={data}>
-                <Patient
-                  firstName={data.firstName}
-                  lastName={data.lastName}
-                  age={data.age}
-                  gender={data.gender}
-                />
-              </div>
-            ))}
+            {patients.map((data) => {
+              const { id } = data;
+              return (
+                <div className={styles.column} key={id}>
+                  <Patient
+                    firstName={data.firstName}
+                    lastName={data.lastName}
+                    age={data.age}
+                    gender={data.gender}
+                  />
+                </div>
+              );
+            })}
           </>
           )}
       </div>

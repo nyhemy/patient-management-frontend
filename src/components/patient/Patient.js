@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Patient.module.css';
 
 const Patient = (props) => {
   const {
@@ -6,19 +7,20 @@ const Patient = (props) => {
   } = props;
 
   return (
-    <div>
+    <div className={styles.card}>
       <div>
         Name:
-        {`${firstName} ${lastName}`}
+        {` ${firstName} ${lastName}`}
       </div>
       <div>
         Age:
-        {age}
+        {` ${age}`}
       </div>
       <div>
         Gender:
-        {gender}
+        {` ${gender}`}
       </div>
+      <div><button type="button">edit</button></div>
     </div>
   );
 };
