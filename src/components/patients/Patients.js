@@ -26,8 +26,8 @@ const Patients = () => {
         setLoading(false);
         setPatients(response.data);
       })
-      .catch((e) => {
-        console.log(e);
+      // eslint-disable-next-line no-unused-vars
+      .catch((error) => {
         setLoading(false);
         setErrorMsg('Oops something went wrong');
       });
@@ -44,14 +44,15 @@ const Patients = () => {
       <div className={styles.row}>
         {loading
           ? <img src={loadImg} alt="loading..." />
-          : !errorMsg && (
+          : errorMsg === '' && (
           <>
             <div><button type="button" onClick={createPatient}>Create</button></div>
             {patients.map((data) => {
-              const { id } = data;
+              const { key } = data;
               return (
-                <div className={styles.column} key={id}>
+                <div className={styles.column} key={key}>
                   <Patient
+                    id={data.id}
                     firstName={data.firstName}
                     lastName={data.lastName}
                     age={data.age}
