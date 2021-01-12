@@ -9,7 +9,7 @@ const axios = require('axios').default;
 const Patients = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
-  const [error, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const [patients, setPatients] = useState([]);
 
@@ -40,11 +40,11 @@ const Patients = () => {
   return (
     <div className={styles.center}>
       <h2>Patients</h2>
-      {error && <h3 className={styles.error}>{error}</h3>}
+      {errorMsg && <h3 className={styles.error}>{errorMsg}</h3>}
       <div className={styles.row}>
         {loading
           ? <img src={loadImg} alt="loading..." />
-          : !error && (
+          : !errorMsg && (
           <>
             <div><button type="button" onClick={createPatient}>Create</button></div>
             {patients.map((data) => {

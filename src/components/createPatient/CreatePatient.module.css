@@ -1,0 +1,45 @@
+.container {
+  justify-content: center;
+  flex-direction: row;
+  text-align: center;
+}
+
+.form {
+  margin: 0 auto 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 275px;
+  border-radius: 10px;
+  border-color: #22752aad;
+  background-color:rgba(212, 212, 212, 0.288);
+  box-shadow: 0 4px 8px 0 rgba(7, 59, 20, 0.19), 0 6px 20px 0 rgba(7, 59, 20, 0.19);}
+
+.input {
+  margin: 2px;
+}
+
+.select {
+  margin-top: 10px;
+  width: 115px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.divider {
+  margin-top: 10px;
+  border-top: double;
+  border-color: #22752aad;
+}
+
+.error {
+  color: red;
+  height: 20px;
+}
+
+.inputError {
+  color: #22752a;
+  font-size: 12px;
+  height: 26px;
+  padding-bottom: 8px;
+}
