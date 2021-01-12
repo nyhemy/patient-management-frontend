@@ -8,7 +8,7 @@
   margin: 0 auto 0;
   padding-top: 20px;
   padding-bottom: 20px;
-  width: 400px;
+  width: 425px;
   border-radius: 10px;
   border-color: #22752aad;
   background-color:rgba(212, 212, 212, 0.288);
@@ -45,7 +45,12 @@
   padding-bottom: 8px;
 }
 
-.inputErrorPadding {
-  width: 200px;
+.inputErrorLeft {
+  width: 50%;
   float: left;
+}
+
+.inputErrorRight {
+  width: 50%;
+  float: right;
 }

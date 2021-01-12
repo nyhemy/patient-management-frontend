@@ -1,4 +1,3 @@
-/* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -113,6 +112,66 @@ const CreatePatient = () => {
       noValidate = true;
     }
 
+    if (lastName === '' || !lastName.trim().length) {
+      setLastNameError('Must be valid last name');
+      noValidate = true;
+    }
+
+    if (ssn === '' || !ssn.trim().length) {
+      setSsnError('Must be valid ssn');
+      noValidate = true;
+    }
+
+    if (email === '' || !email.trim().length) {
+      setEmailError('Must be valid email');
+      noValidate = true;
+    }
+
+    if (street === '' || !street.trim().length) {
+      setStreetError('Must be valid street');
+      noValidate = true;
+    }
+
+    if (city === '' || !city.trim().length) {
+      setCityError('Must be valid city');
+      noValidate = true;
+    }
+
+    if (state === '' || !state.trim().length) {
+      setStateError('Must be valid state');
+      noValidate = true;
+    }
+
+    if (zipcode === '' || !zipcode.trim().length) {
+      setZipCodeError('Must be valid zipcode');
+      noValidate = true;
+    }
+
+    if (age <= 0 || !(typeof age === 'number')) {
+      setAgeError('Must be valid age');
+      noValidate = true;
+    }
+
+    if (height <= 0 || !(typeof height === 'number')) {
+      setHeightError('Must be valid height');
+      noValidate = true;
+    }
+
+    if (weight <= 0 || !(typeof weight === 'number')) {
+      setWeightError('Must be valid weight');
+      noValidate = true;
+    }
+
+    if (insurance === '' || !insurance.trim().length) {
+      setInsuranceError('Must be valid insurance');
+      noValidate = true;
+    }
+
+    if (gender === '' || !gender.trim().length) {
+      setGenderError('Must be valid gender');
+      noValidate = true;
+    }
+
     if (noValidate) {
       // eslint-disable-next-line no-useless-return
       return;
@@ -135,9 +194,9 @@ const CreatePatient = () => {
             <input type="text" name="lastName" placeholder="last name" onChange={handleChange} />
           </div>
           <div className={styles.inputError}>
-            <span className={styles.inputErrorPadding}>{firstNameError}</span>
+            <div className={styles.inputErrorLeft}>{firstNameError}</div>
             {' '}
-            <span className={styles.inputErrorPadding}>{lastNameError}</span>
+            <div className={styles.inputErrorRight}>{lastNameError}</div>
           </div>
 
           <div className={styles.input}>
@@ -146,20 +205,20 @@ const CreatePatient = () => {
             <input type="email" name="email" placeholder="email" onChange={handleChange} />
           </div>
           <div className={styles.inputError}>
-            <span className={styles.inputErrorPadding}>{ssnError}</span>
+            <span className={styles.inputErrorLeft}>{ssnError}</span>
             {' '}
-            <span className={styles.inputErrorPadding}>{emailError}</span>
+            <span className={styles.inputErrorRight}>{emailError}</span>
           </div>
-          
+
           <div className={styles.input}>
             <input type="text" name="street" placeholder="street" onChange={handleChange} />
             {' '}
             <input type="text" name="city" placeholder="city" onChange={handleChange} />
           </div>
           <div className={styles.inputError}>
-            <span className={styles.inputErrorPadding}>{streetError}</span>
+            <span className={styles.inputErrorLeft}>{streetError}</span>
             {' '}
-            <span className={styles.inputErrorPadding}>{cityError}</span>
+            <span className={styles.inputErrorRight}>{cityError}</span>
           </div>
 
           <div className={styles.input}>
@@ -168,9 +227,9 @@ const CreatePatient = () => {
             <input type="text" name="zipcode" placeholder="zipcode" onChange={handleChange} />
           </div>
           <div className={styles.inputError}>
-            <span className={styles.inputErrorPadding}>{stateError}</span>
+            <span className={styles.inputErrorLeft}>{stateError}</span>
             {' '}
-            <span className={styles.inputErrorPadding}>{zipcodeError}</span>
+            <span className={styles.inputErrorRight}>{zipcodeError}</span>
           </div>
 
           <div className={styles.input}>
@@ -179,9 +238,9 @@ const CreatePatient = () => {
             <input type="number" name="height" placeholder="height" onChange={handleChange} />
           </div>
           <div className={styles.inputError}>
-            <span className={styles.inputErrorPadding}>{ageError}</span>
+            <span className={styles.inputErrorLeft}>{ageError}</span>
             {' '}
-            <span className={styles.inputErrorPadding}>{heightError}</span>
+            <span className={styles.inputErrorRight}>{heightError}</span>
           </div>
 
           <div className={styles.input}>
@@ -190,12 +249,14 @@ const CreatePatient = () => {
             <input type="text" name="insurance" placeholder="insurance" onChange={handleChange} />
           </div>
           <div className={styles.inputError}>
-            <span className={styles.inputErrorPadding}>{weightError}</span>
+            <span className={styles.inputErrorLeft}>{weightError}</span>
             {' '}
-            <span className={styles.inputErrorPadding}>{insuranceError}</span>
+            <span className={styles.inputErrorRight}>{insuranceError}</span>
           </div>
+
           <div className={styles.input}><input type="text" name="gender" placeholder="gender" onChange={handleChange} /></div>
           <div className={styles.inputError}>{genderError}</div>
+
           <div><button type="submit">Create</button></div>
         </form>
       </>
