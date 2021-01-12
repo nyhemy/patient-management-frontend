@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import loadImg from '../ajax-loader.gif';
 import styles from './CreatePatient.module.css';
 import { emailRegex, zipcodeRegex } from '../Constants';
+import { stateValidator } from '../Functions';
 
 const axios = require('axios').default;
 
@@ -137,7 +138,7 @@ const CreatePatient = () => {
       noValidate = true;
     }
 
-    if (state === '' || !state.trim().length) {
+    if (!stateValidator(state)) {
       setStateError('Must be valid state');
       noValidate = true;
     }
