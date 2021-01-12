@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import loadImg from '../ajax-loader.gif';
 import styles from './CreatePatient.module.css';
-import { emailRegex, zipcodeRegex } from '../Constants';
-import { stateValidator } from '../Functions';
+import { emailRegex, zipcodeRegex, ssnRegex } from '../Constants';
+import { stateValidator, genderValidator } from '../Functions';
 
 const axios = require('axios').default;
 
@@ -118,12 +118,12 @@ const CreatePatient = () => {
       noValidate = true;
     }
 
-    if (ssn === '' || !ssn.trim().length) {
+    if (ssn === '' || !ssn.trim().length || !ssnRegex.test(ssn)) {
       setSsnError('Must be valid ssn');
       noValidate = true;
     }
 
-    if (email === '' || !email.trim().length) {
+    if (email === '' || !email.trim().length || !emailRegex.test(email)) {
       setEmailError('Must be valid email');
       noValidate = true;
     }
@@ -138,12 +138,12 @@ const CreatePatient = () => {
       noValidate = true;
     }
 
-    if (!stateValidator(state)) {
+    if (state === '' || !state.trim().length || !stateValidator(state)) {
       setStateError('Must be valid state');
       noValidate = true;
     }
 
-    if (zipcode === '' || !zipcode.trim().length) {
+    if (zipcode === '' || !zipcode.trim().length || !zipcodeRegex.test(zipcode)) {
       setZipCodeError('Must be valid zipcode');
       noValidate = true;
     }
@@ -168,7 +168,7 @@ const CreatePatient = () => {
       noValidate = true;
     }
 
-    if (gender === '' || !gender.trim().length) {
+    if (gender === '' || !gender.trim().length || !genderValidator(gender)) {
       setGenderError('Must be valid gender');
       noValidate = true;
     }
@@ -255,10 +255,20 @@ const CreatePatient = () => {
             <span className={styles.inputErrorRight}>{insuranceError}</span>
           </div>
 
-          <div className={styles.input}><input type="text" name="gender" placeholder="gender" onChange={handleChange} /></div>
+          {/* eslint-disable-next-line max-len */}
+          {/* <div className={styles.input}><input type="text" name="gender" placeholder="gender" onChange={handleChange} /></div> */}
+          <div>
+            {/* eslint-disable-next-line jsx-a11y/no-onchange */}
+            <select defaultValue="DEFAULT" className={styles.select} name="gender" onBlur={handleChange}>
+              <option value="DEFAULT">--select gender--</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
           <div className={styles.inputError}>{genderError}</div>
 
-          <div><button type="submit">Create</button></div>
+          <button type="submit">Create</button>
         </form>
       </>
     </div>
