@@ -34,35 +34,46 @@ const Patient = (props) => {
       // eslint-disable-next-line no-unused-vars
       .catch((error) => {
         setLoading(false);
-        setErrorMsg('Oops something went wrong');
+        if (error.response) {
+          switch (error.response.status) {
+            case 409:
+              setErrorMsg('Cannot delete patient with existing encounters');
+              break;
+            default:
+              setErrorMsg('Oops something went wrong');
+              break;
+          }
+        } else {
+          setErrorMsg('Oops something went wrong');
+        }
       });
   };
 
   return (
     <div className={styles.card}>
-      {errorMsg !== '' && <h2 className={styles.notification}>{errorMsg}</h2>}
       {loading
         ? <img src={loadImg} alt="loading..." />
-        : errorMsg === '' && (
-        <div>
+        : (
           <div>
-            Name:
-            {` ${firstName} ${lastName}`}
+            <div>
+              Name:
+              {` ${firstName} ${lastName}`}
+            </div>
+            <div>
+              Age:
+              {` ${age}`}
+            </div>
+            <div>
+              Gender:
+              {` ${gender}`}
+            </div>
+            <div>
+              <button type="button">select</button>
+              <button type="button" onClick={deletePatient}>Delete</button>
+            </div>
           </div>
-          <div>
-            Age:
-            {` ${age}`}
-          </div>
-          <div>
-            Gender:
-            {` ${gender}`}
-          </div>
-          <div>
-            <button type="button">select</button>
-            <button type="button" onClick={deletePatient}>Delete</button>
-          </div>
-        </div>
         )}
+      {errorMsg !== '' && <h2 className={styles.notification}>{errorMsg}</h2>}
     </div>
   );
 };

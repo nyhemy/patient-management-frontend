@@ -47,20 +47,17 @@ const Patients = () => {
           : errorMsg === '' && (
           <>
             <div><button type="button" onClick={createPatient}>Create</button></div>
-            {patients.map((data) => {
-              const { key } = data;
-              return (
-                <div className={styles.column} key={key}>
-                  <Patient
-                    id={data.id}
-                    firstName={data.firstName}
-                    lastName={data.lastName}
-                    age={data.age}
-                    gender={data.gender}
-                  />
-                </div>
-              );
-            })}
+            {patients.map((data) => (
+              <div className={styles.column} key={data.id}>
+                <Patient
+                  id={data.id}
+                  firstName={data.firstName}
+                  lastName={data.lastName}
+                  age={data.age}
+                  gender={data.gender}
+                />
+              </div>
+            ))}
           </>
           )}
       </div>
