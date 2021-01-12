@@ -23,7 +23,7 @@ const CreatePatient = () => {
   const [zipcode, setZipCode] = useState('');
   const [age, setAge] = useState(0);
   const [height, setHeight] = useState(0);
-  const [weight, setWeight] = useState(0);
+  const [weight, setWeight] = useState('potato');
   const [insurance, setInsurance] = useState('');
   const [gender, setGender] = useState('');
 
@@ -148,17 +148,17 @@ const CreatePatient = () => {
       noValidate = true;
     }
 
-    if (age <= 0 || !(typeof age === 'number')) {
+    if (age <= 0 || Number.isNaN(Number(age))) {
       setAgeError('Must be valid age');
       noValidate = true;
     }
 
-    if (height <= 0 || !(typeof height === 'number')) {
+    if (height <= 0 || Number.isNaN(Number(height))) {
       setHeightError('Must be valid height');
       noValidate = true;
     }
 
-    if (weight <= 0 || !(typeof weight === 'number')) {
+    if (weight <= 0 || Number.isNaN(Number(weight))) {
       setWeightError('Must be valid weight');
       noValidate = true;
     }
@@ -174,9 +174,43 @@ const CreatePatient = () => {
     }
 
     if (noValidate) {
-      // eslint-disable-next-line no-useless-return
       return;
     }
+
+    setLoading(true);
+
+    axios.post('http://localhost:8080/patients',
+      {
+        user: sessionStorage.getItem('email'),
+        firstName,
+        lastName,
+        ssn,
+        email,
+        street,
+        city,
+        state,
+        postal: zipcode,
+        age,
+        height,
+        weight,
+        insurance,
+        gender
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          mode: 'cors',
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`
+        }
+      })
+      .then((response) => {
+        setLoading(false);
+        history.push('/patients');
+      })
+      .catch((error) => {
+        setLoading(false);
+        setErrorMsg('Oops something went wrong');
+      });
   };
 
   return (
