@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import loadImg from '../ajax-loader.gif';
@@ -203,10 +202,12 @@ const CreatePatient = () => {
           Authorization: `Bearer ${sessionStorage.getItem('token')}`
         }
       })
+      // eslint-disable-next-line no-unused-vars
       .then((response) => {
         setLoading(false);
         history.push('/patients');
       })
+      // eslint-disable-next-line no-unused-vars
       .catch((error) => {
         setLoading(false);
         setErrorMsg('Oops something went wrong');

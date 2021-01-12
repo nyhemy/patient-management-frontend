@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styles from './Patient.module.css';
 import loadImg from '../ajax-loader.gif';
 
@@ -10,9 +10,13 @@ const Patient = (props) => {
     id, firstName, lastName, age, gender
   } = props;
 
-  // const history = useHistory();
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  const patientDetails = () => {
+    history.push(`/patients/${id}`);
+  };
 
   const deletePatient = () => {
     setLoading(true);
@@ -68,7 +72,7 @@ const Patient = (props) => {
               {` ${gender}`}
             </div>
             <div>
-              <button type="button">select</button>
+              <button type="button" onClick={patientDetails}>Select</button>
               <button type="button" onClick={deletePatient}>Delete</button>
             </div>
           </div>
