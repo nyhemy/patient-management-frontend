@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import loadImg from '../ajax-loader.gif';
-import Patient from '../patient/Patient';
 import styles from './Patients.module.css';
-
-const axios = require('axios').default;
+import { get } from '../Requests';
+import Patient from '../patient/Patient';
 
 const Patients = () => {
   const history = useHistory();
@@ -16,12 +15,7 @@ const Patients = () => {
   useEffect(() => {
     setErrorMsg('');
     setLoading(true);
-    axios.get('http://localhost:8080/patients', {
-      headers: {
-        'Content-Type': 'application/json',
-        mode: 'cors'
-      }
-    })
+    get('http://localhost:8080/patients')
       .then((response) => {
         setLoading(false);
         setPatients(response.data);

@@ -22,7 +22,7 @@ const CreatePatient = () => {
   const [zipcode, setZipCode] = useState('');
   const [age, setAge] = useState(0);
   const [height, setHeight] = useState(0);
-  const [weight, setWeight] = useState('potato');
+  const [weight, setWeight] = useState('');
   const [insurance, setInsurance] = useState('');
   const [gender, setGender] = useState('');
 
@@ -180,7 +180,6 @@ const CreatePatient = () => {
 
     axios.post('http://localhost:8080/patients',
       {
-        user: sessionStorage.getItem('email'),
         firstName,
         lastName,
         ssn,

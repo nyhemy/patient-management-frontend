@@ -28,6 +28,7 @@
 .error {
   color: red;
   height: 20px;
+  text-align: center;
 }
 
 .container {
@@ -37,7 +38,7 @@
 
 .form {
   margin: 0 auto 0;
-  padding-top: 20px;
+  padding-top: 5px;
   padding-bottom: 20px;
   width: 320px;
   border-radius: 10px;
@@ -48,13 +49,16 @@
 
 .input {
   margin: 8px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .inputError {
   color: #22752a;
   font-size: 12px;
-  height: 26px;
+  height: 12px;
   padding-bottom: 10px;
+  text-align: center;
 }
 
 .left {
