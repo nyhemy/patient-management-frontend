@@ -44,7 +44,7 @@ const PatientDetails = () => {
             id={data.id}
             visitCode={data.visitCode}
             provider={data.provider}
-            data={data.date}
+            date={data.date}
           />
         </div>
       ))}
