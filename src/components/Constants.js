@@ -6,7 +6,7 @@ const ssnRegex = RegExp(/^\d{3}-\d{2}-\d{4}$/i);
 
 const zipcodeRegex = RegExp(/^[0-9]{5}(?:-[0-9]{4})?$/i);
 
-const validGenders = ['Male', 'Female', 'Other'];
+const validGenders = ['male', 'female', 'other'];
 
 export {
   emailRegex, states, ssnRegex, zipcodeRegex, validGenders

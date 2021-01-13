@@ -385,11 +385,17 @@ const PatientDetails = () => {
         <div className={styles.input}>
           <span className={styles.left}>Gender:</span>
           {' '}
-          <input className={styles.right} value={gender} name="gender" type="text" onChange={handleChange} />
+          {/* eslint-disable-next-line jsx-a11y/no-onchange */}
+          <select value={gender} className={styles.select} name="gender" onChange={handleChange}>
+            <option value="DEFAULT">--select gender--</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
         </div>
         <div className={styles.inputError}>{genderError}</div>
 
-        <div className={styles.center}><button type="submit">Submit</button></div>
+        <div className={styles.button}><button type="submit">Submit</button></div>
       </form>
       )}
       <div className={styles.encounterPadding}>

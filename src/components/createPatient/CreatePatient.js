@@ -289,15 +289,13 @@ const CreatePatient = () => {
             <span className={styles.inputErrorRight}>{insuranceError}</span>
           </div>
 
-          {/* eslint-disable-next-line max-len */}
-          {/* <div className={styles.input}><input type="text" name="gender" placeholder="gender" onChange={handleChange} /></div> */}
           <div>
             {/* eslint-disable-next-line jsx-a11y/no-onchange */}
-            <select defaultValue="DEFAULT" className={styles.select} name="gender" onBlur={handleChange}>
+            <select value="DEFAULT" className={styles.select} name="gender" onChange={handleChange}>
               <option value="DEFAULT">--select gender--</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
+              <option value="male">Male</option>
+              <option value="memale">Female</option>
+              <option value="other">Other</option>
             </select>
           </div>
           <div className={styles.inputError}>{genderError}</div>

@@ -77,3 +77,8 @@
   border-color: #22752aad;
   text-align: center;
 }
+
+.button {
+  text-align: center;
+  margin-top: 10px;
+}
