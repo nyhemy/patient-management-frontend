@@ -193,8 +193,13 @@ const PatientDetails = () => {
           <input className={styles.right} value={gender} name="gender" type="text" onChange={handleChange} />
         </div>
 
+        <div className={styles.center}><button type="submit">Edit</button></div>
       </form>
       )}
+      <div className={styles.encounterPadding}>
+        <h3 className={styles.center}>Encounters:</h3>
+        <div className={styles.center}><button type="button">Create Encounter</button></div>
+      </div>
 
       {encounters.map((data) => (
         <div className={styles.column} key={data.id}>

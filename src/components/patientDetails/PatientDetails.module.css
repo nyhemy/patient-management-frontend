@@ -65,3 +65,11 @@
 .right {
   width: 65%;
 }
+
+.encounterPadding {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: solid;
+  border-color: #22752aad;
+  text-align: center;
+}
