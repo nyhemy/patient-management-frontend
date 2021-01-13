@@ -1,0 +1,19 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(7, 59, 20, 0.19);
+  text-align: center;
+  background-color: #f1f1f1;
+  overflow: hidden;
+  width: 350px;
+  padding: 10px;
+  height: 135px;
+}
+
+.container {
+  padding: 4px 16px;
+}
+
+.notification {
+  color: red;
+  height: 14px;
+  font-size: 14px;
+}
