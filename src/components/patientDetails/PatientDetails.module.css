@@ -27,4 +27,41 @@
 
 .error {
   color: red;
+  height: 20px;
+}
+
+.container {
+  justify-content: center;
+  flex-direction: row;
+}
+
+.form {
+  margin: 0 auto 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 320px;
+  border-radius: 10px;
+  border-color: #22752aad;
+  background-color:rgba(212, 212, 212, 0.288);
+  box-shadow: 0 4px 8px 0 rgba(7, 59, 20, 0.19), 0 6px 20px 0 rgba(7, 59, 20, 0.19);
+}
+
+.input {
+  margin: 8px;
+}
+
+.inputError {
+  color: #22752a;
+  font-size: 12px;
+  height: 26px;
+  padding-bottom: 10px;
+}
+
+.left {
+  width: 35%;
+  float: left;
+}
+
+.right {
+  width: 65%;
 }
