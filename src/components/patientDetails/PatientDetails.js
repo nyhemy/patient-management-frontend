@@ -407,6 +407,7 @@ const PatientDetails = () => {
         <div className={styles.column} key={data.id}>
           <Encounter
             id={data.id}
+            patientId={data.patientId}
             visitCode={data.visitCode}
             provider={data.provider}
             date={data.date}

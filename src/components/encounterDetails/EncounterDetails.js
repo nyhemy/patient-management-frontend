@@ -1,10 +1,10 @@
-import React from 'react';
+// import React from 'react';
 
-const EncounterDetails = () => {
+// const EncounterDetails = () => {
 
-  return (
+//   return (
 
-  );
-}
+//   );
+// }
 
-export default EncounterDetails;
+// export default EncounterDetails;

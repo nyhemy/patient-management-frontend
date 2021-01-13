@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './Encounter.module.css';
 
 const Encounter = (props) => {
@@ -20,8 +21,10 @@ const Encounter = (props) => {
     date
   } = props;
 
-  const encounterDetails = () => {
+  const history = useHistory();
 
+  const encounterDetails = () => {
+    history.push(`/patients/${patientId}/encounters/${id}`);
   };
 
   return (
