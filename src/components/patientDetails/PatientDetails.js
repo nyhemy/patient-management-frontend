@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Encounter from '../Encounter/Encounter';
@@ -101,7 +100,7 @@ const PatientDetails = () => {
         setLoading(false);
         setErrorMsg('Oops something went wrong');
       });
-  }, [history, id]);
+  }, [id]);
 
   const clearErrors = () => {
     setFirstNameError('');
@@ -266,6 +265,7 @@ const PatientDetails = () => {
           Authorization: `Bearer ${sessionStorage.getItem('token')}`
         }
       })
+      // eslint-disable-next-line no-unused-vars
       .then((response) => {
         setLoading(false);
         history.push('/patients');
