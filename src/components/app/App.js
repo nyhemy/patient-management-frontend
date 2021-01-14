@@ -5,6 +5,7 @@ import CreatePatients from '../createPatient/CreatePatient';
 import PatientDetails from '../patientDetails/PatientDetails';
 import EncounterDetails from '../encounterDetails/EncounterDetails';
 import NotFound from '../notFound/NotFound';
+import CreateEncounter from '../createEncounter/CreateEncounter';
 
 const App = () => (
   <Router>
@@ -12,6 +13,7 @@ const App = () => (
       <Route exact path="/patients" component={Patients} />
       <Route exact path="/patients/create" component={CreatePatients} />
       <Route exact path="/patients/:id" component={PatientDetails} />
+      <Route exact path="/patients/:id/encounters/create" component={CreateEncounter} />
       <Route exact path="/patients/:id/encounters/:encounterId" component={EncounterDetails} />
       <Route path="*" component={NotFound} />
     </Switch>

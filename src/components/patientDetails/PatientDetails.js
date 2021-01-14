@@ -103,6 +103,10 @@ const PatientDetails = () => {
       });
   }, [id, notFound]);
 
+  const createEncounter = () => {
+    history.push(`/patients/${id}/encounters/create`);
+  };
+
   const clearErrors = () => {
     setFirstNameError('');
     setLastNameError('');
@@ -400,7 +404,7 @@ const PatientDetails = () => {
       )}
       <div className={styles.encounterPadding}>
         <h3 className={styles.center}>Encounters:</h3>
-        <div className={styles.center}><button type="button">Create Encounter</button></div>
+        <div className={styles.center}><button type="button" onClick={createEncounter}>Create Encounter</button></div>
       </div>
 
       {encounters.map((data) => (
