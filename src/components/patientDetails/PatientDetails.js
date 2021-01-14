@@ -51,10 +51,10 @@ const PatientDetails = () => {
   useEffect(() => {
     if (Number.isNaN(Number(id))) {
       setNotFound(true);
+      setErrorMsg('404 Not Found');
     }
 
     setLoading(true);
-    setErrorMsg('');
     get(`http://localhost:8080/patients/${id}`)
       .then((response) => {
         const res = response.data;
@@ -90,17 +90,18 @@ const PatientDetails = () => {
         }
       });
 
-    get(`http://localhost:8080/patients/${id}/encounters`)
+    // eslint-disable-next-line no-unused-expressions
+    !notFound && get(`http://localhost:8080/patients/${id}/encounters`)
       .then((response) => {
         setLoading(false);
         setEncounters(response.data);
       })
-    // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars
       .catch((error) => {
         setLoading(false);
         setErrorMsg('Oops something went wrong');
       });
-  }, [id]);
+  }, [id, notFound]);
 
   const clearErrors = () => {
     setFirstNameError('');
