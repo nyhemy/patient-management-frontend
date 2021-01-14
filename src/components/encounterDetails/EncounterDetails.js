@@ -1,13 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import Encounter from '../Encounter/Encounter';
 // eslint-disable-next-line import/no-unresolved
 import styles from './EncounterDetails.module.css';
 import loadImg from '../ajax-loader.gif';
 import { get } from '../Requests';
-import { emailRegex, zipcodeRegex, ssnRegex } from '../Constants';
-import { stateValidator, genderValidator } from '../Functions';
+import {
+  visitCodeRegex, billingCodeRegex, icd10Regex, dateRegex
+} from '../Constants';
 
 const axios = require('axios').default;
 
@@ -33,7 +32,6 @@ const EncounterDetails = () => {
   const [diastolic, setDiastolic] = useState('');
   const [date, setDate] = useState('');
 
-  const [notesError, setNotesError] = useState('');
   const [visitCodeError, setVisitCodeError] = useState('');
   const [providerError, setProviderError] = useState('');
   const [billingCodeError, setBillingCodeError] = useState('');
@@ -49,15 +47,19 @@ const EncounterDetails = () => {
   useEffect(() => {
     if (Number.isNaN(Number(id))) {
       setNotFound(true);
+      setErrorMsg('404 Not Found');
     }
 
     setLoading(true);
-    setErrorMsg('');
     get(`http://localhost:8080/encounters/${encounterId}`)
       .then((response) => {
         const res = response.data;
         setLoading(false);
 
+        if (res.patientId !== Number(id)) {
+          setNotFound(true);
+          setErrorMsg('404 Not Found');
+        }
         setNotes(res.notes);
         setVisitCode(res.visitCode);
         setProvider(res.provider);
@@ -80,14 +82,30 @@ const EncounterDetails = () => {
           } else {
             setLoading(false);
             // eslint-disable-next-line no-unused-expressions
-            Number.isNaN(Number(id)) ? setErrorMsg('404 Not Found') : setErrorMsg('Oops something went wrong');
+            (Number.isNaN(Number(id)) || Number.isNaN(Number(encounterId)))
+              ? setErrorMsg('404 Not Found')
+              : setErrorMsg('Oops something went wrong');
           }
         } else if (error.request) {
           setLoading(false);
           setErrorMsg('Oops something went wrong');
         }
       });
-  }, [encounterId, id]);
+  }, [encounterId, id, notes]);
+
+  const clearErrors = () => {
+    setVisitCodeError('');
+    setProviderError('');
+    setBillingCodeError('');
+    setIcd10Error('');
+    setTotalCostError('');
+    setCopayError('');
+    setChiefComplaintError('');
+    setPulseError('');
+    setSystolicError('');
+    setDiastolicError('');
+    setDateError('');
+  };
 
   const handleChange = (event) => {
     switch (event.target.name) {
@@ -132,8 +150,106 @@ const EncounterDetails = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
+    clearErrors();
+    let noValidate = false;
+
+    if (visitCode === '' || !visitCode.trim().length || !visitCodeRegex.test(visitCode)) {
+      setVisitCodeError('Must be valid visit code');
+      noValidate = true;
+    }
+
+    if (provider === '' || !provider.trim().length) {
+      setProviderError('Must be valid provider');
+      noValidate = true;
+    }
+
+    if (billingCode === '' || !billingCode.trim().length || !billingCodeRegex.test(billingCode)) {
+      setBillingCodeError('Must be valid billing code');
+      noValidate = true;
+    }
+
+    if (icd10 === '' || !icd10.trim().length || !icd10Regex.test(icd10)) {
+      setIcd10Error('Must be valid icd10');
+      noValidate = true;
+    }
+
+    if (totalCost === '' || totalCost < 0 || Number.isNaN(Number(totalCost))) {
+      setTotalCostError('Must be valid total cost');
+      noValidate = true;
+    }
+
+    if (copay === '' || copay < 0 || Number.isNaN(Number(copay))) {
+      setCopayError('Must be valid copay');
+      noValidate = true;
+    }
+
+    if (chiefComplaint === '' || !chiefComplaint.trim().length) {
+      setChiefComplaintError('Must be valid chief complaint');
+      noValidate = true;
+    }
+
+    if (Number.isNaN(Number(pulse))) {
+      setPulseError('Must be valid pulse');
+      noValidate = true;
+    }
+
+    if (Number.isNaN(Number(systolic))) {
+      setSystolicError('Must be valid systolic');
+      noValidate = true;
+    }
+
+    if (Number.isNaN(Number(diastolic))) {
+      setDiastolicError('Must be valid diastolic');
+      noValidate = true;
+    }
+
+    if (date === '' || !date.trim().length || !dateRegex.test(date)) {
+      setDateError('Must be valid date');
+      noValidate = true;
+    }
+
+    if (noValidate) {
+      return;
+    }
+
+    setLoading(true);
+
+    axios.put(`http://localhost:8080/patients/${id}/encounters/${encounterId}`,
+      {
+        id: encounterId,
+        patientId: id,
+        notes,
+        visitCode,
+        provider,
+        billingCode,
+        icd10,
+        totalCost,
+        copay,
+        chiefComplaint,
+        pulse,
+        systolic,
+        diastolic,
+        date
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          mode: 'cors'
+        }
+      })
+      // eslint-disable-next-line no-unused-vars
+      .then((response) => {
+        setLoading(false);
+        history.push(`/patients/${id}`);
+      })
+      // eslint-disable-next-line no-unused-vars
+      .catch((error) => {
+        setLoading(false);
+        setErrorMsg('Oops something went wrong');
+      });
   };
 
   return (
@@ -161,7 +277,7 @@ const EncounterDetails = () => {
           {' '}
           <input className={styles.right} value={notes} name="notes" type="text" onChange={handleChange} />
         </div>
-        <div className={styles.inputError}>{notesError}</div>
+        <div className={styles.inputError} />
 
         <div className={styles.input}>
           <span className={styles.left}>Visit Code:</span>
@@ -194,14 +310,14 @@ const EncounterDetails = () => {
         <div className={styles.input}>
           <span className={styles.left}>Total Cost:</span>
           {' '}
-          <input className={styles.right} value={totalCost} name="totalCost" type="text" onChange={handleChange} />
+          <input className={styles.right} value={totalCost} name="totalCost" type="number" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{totalCostError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Copay:</span>
           {' '}
-          <input className={styles.right} value={copay} name="copay" type="text" onChange={handleChange} />
+          <input className={styles.right} value={copay} name="copay" type="number" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{copayError}</div>
 

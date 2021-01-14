@@ -8,6 +8,22 @@ const zipcodeRegex = RegExp(/^[0-9]{5}(?:-[0-9]{4})?$/i);
 
 const validGenders = ['male', 'female', 'other'];
 
+const visitCodeRegex = RegExp(/\S\d\S \d\S\d/i);
+
+const billingCodeRegex = RegExp(/\d{3}.\d{3}.\d{3}-\d{2}/i);
+
+const icd10Regex = RegExp(/\S\d\d/i);
+
+const dateRegex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/i);
+
 export {
-  emailRegex, states, ssnRegex, zipcodeRegex, validGenders
+  emailRegex,
+  states,
+  ssnRegex,
+  zipcodeRegex,
+  validGenders,
+  visitCodeRegex,
+  billingCodeRegex,
+  icd10Regex,
+  dateRegex
 };

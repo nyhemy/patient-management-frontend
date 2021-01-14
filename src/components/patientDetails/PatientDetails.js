@@ -28,8 +28,8 @@ const PatientDetails = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipCode] = useState('');
-  const [age, setAge] = useState(0);
-  const [height, setHeight] = useState(0);
+  const [age, setAge] = useState('');
+  const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [insurance, setInsurance] = useState('');
   const [gender, setGender] = useState('');
@@ -210,17 +210,17 @@ const PatientDetails = () => {
       noValidate = true;
     }
 
-    if (age <= 0 || Number.isNaN(Number(age))) {
+    if (age === '' || age <= 0 || Number.isNaN(Number(age))) {
       setAgeError('Must be valid age');
       noValidate = true;
     }
 
-    if (height <= 0 || Number.isNaN(Number(height))) {
+    if (height === '' || height <= 0 || Number.isNaN(Number(height))) {
       setHeightError('Must be valid height');
       noValidate = true;
     }
 
-    if (weight <= 0 || Number.isNaN(Number(weight))) {
+    if (weight === '' || weight <= 0 || Number.isNaN(Number(weight))) {
       setWeightError('Must be valid weight');
       noValidate = true;
     }
@@ -261,8 +261,7 @@ const PatientDetails = () => {
       {
         headers: {
           'Content-Type': 'application/json',
-          mode: 'cors',
-          Authorization: `Bearer ${sessionStorage.getItem('token')}`
+          mode: 'cors'
         }
       })
       // eslint-disable-next-line no-unused-vars
