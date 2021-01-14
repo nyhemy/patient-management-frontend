@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import loadImg from '../ajax-loader.gif';
 import styles from './CreateEncounter.module.css';
 import {
   visitCodeRegex, billingCodeRegex, icd10Regex, dateRegex
 } from '../Constants';
+import { get } from '../Requests';
 
 const axios = require('axios').default;
 
@@ -14,6 +15,7 @@ const CreateEncounter = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [notFound, setNotFound] = useState(false);
 
   const [notes, setNotes] = useState('');
   const [visitCode, setVisitCode] = useState('');
@@ -39,6 +41,35 @@ const CreateEncounter = () => {
   const [systolicError, setSystolicError] = useState('');
   const [diastolicError, setDiastolicError] = useState('');
   const [dateError, setDateError] = useState('');
+
+  useEffect(() => {
+    if (Number.isNaN(Number(id))) {
+      setNotFound(true);
+    }
+
+    setLoading(true);
+    get(`http://localhost:8080/patients/${id}`)
+      // eslint-disable-next-line no-unused-vars
+      .then((response) => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            setLoading(false);
+            setNotFound(true);
+            setErrorMsg('404 Patient Not Found');
+          } else {
+            setLoading(false);
+            // eslint-disable-next-line no-unused-expressions
+            Number.isNaN(Number(id)) ? setErrorMsg('404 Patient Not Found') : setErrorMsg('Oops something went wrong');
+          }
+        } else if (error.request) {
+          setLoading(false);
+          setErrorMsg('Oops something went wrong');
+        }
+      });
+  }, [id]);
 
   const clearErrors = () => {
     setVisitCodeError('');
@@ -205,6 +236,7 @@ const CreateEncounter = () => {
           ? <img src={loadImg} alt="loading..." />
           : errorMsg}
       </h3>
+      {!notFound && (
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <div className={styles.input}>
           <input type="text" name="notes" placeholder="notes" onChange={handleChange} />
@@ -274,6 +306,7 @@ const CreateEncounter = () => {
 
         <button type="submit">Create</button>
       </form>
+      )}
     </div>
   );
 };
