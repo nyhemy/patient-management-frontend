@@ -25,9 +25,9 @@ const CreateEncounter = () => {
   const [totalCost, setTotalCost] = useState('');
   const [copay, setCopay] = useState('');
   const [chiefComplaint, setChiefComplaint] = useState('');
-  const [pulse, setPulse] = useState('');
-  const [systolic, setSystolic] = useState('');
-  const [diastolic, setDiastolic] = useState('');
+  const [pulse, setPulse] = useState(0);
+  const [systolic, setSystolic] = useState(0);
+  const [diastolic, setDiastolic] = useState(0);
   const [date, setDate] = useState('');
 
   const [visitCodeError, setVisitCodeError] = useState('');
@@ -263,7 +263,7 @@ const CreateEncounter = () => {
         <div className={styles.input}>
           <input type="text" name="icd10" placeholder="icd10" onChange={handleChange} />
           {' '}
-          <input type="text" name="totalCost" placeholder="total cost" onChange={handleChange} />
+          <input type="number" name="totalCost" placeholder="total cost" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorRight}>{icd10Error}</div>
@@ -272,7 +272,7 @@ const CreateEncounter = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="text" name="copay" placeholder="copay" onChange={handleChange} />
+          <input type="number" name="copay" placeholder="copay" onChange={handleChange} />
           {' '}
           <input type="text" name="chiefComplaint" placeholder="chief complaint" onChange={handleChange} />
         </div>
@@ -283,9 +283,9 @@ const CreateEncounter = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="text" name="pulse" placeholder="pulse" onChange={handleChange} />
+          <input type="number" name="pulse" placeholder="pulse" onChange={handleChange} />
           {' '}
-          <input type="text" name="systolic" placeholder="systolic" onChange={handleChange} />
+          <input type="number" name="systolic" placeholder="systolic" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorRight}>{pulseError}</div>
@@ -294,9 +294,9 @@ const CreateEncounter = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="text" name="diastolic" placeholder="diastolic" onChange={handleChange} />
+          <input type="number" name="diastolic" placeholder="diastolic" onChange={handleChange} />
           {' '}
-          <input type="text" name="date" placeholder="date" onChange={handleChange} />
+          <input type="date" name="date" placeholder="date" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorRight}>{diastolicError}</div>

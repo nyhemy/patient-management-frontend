@@ -107,6 +107,10 @@ const PatientDetails = () => {
     history.push(`/patients/${id}/encounters/create`);
   };
 
+  const patients = () => {
+    history.push('/patients');
+  };
+
   const clearErrors = () => {
     setFirstNameError('');
     setLastNameError('');
@@ -284,6 +288,7 @@ const PatientDetails = () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.center}>Patient Details</h2>
+      <div className={styles.center}><button type="button" onClick={patients}>Back to Patients</button></div>
       <h3 className={styles.error}>
         {loading
           ? <img src={loadImg} alt="loading..." />

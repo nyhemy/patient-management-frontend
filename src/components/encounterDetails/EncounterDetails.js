@@ -352,7 +352,7 @@ const EncounterDetails = () => {
         <div className={styles.input}>
           <span className={styles.left}>Date:</span>
           {' '}
-          <input className={styles.right} value={date} name="date" type="text" onChange={handleChange} />
+          <input className={styles.right} value={date} name="date" type="date" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{dateError}</div>
 
