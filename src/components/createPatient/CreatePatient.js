@@ -221,88 +221,86 @@ const CreatePatient = () => {
           ? <img src={loadImg} alt="loading..." />
           : errorMsg}
       </h3>
-      <>
-        <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          <div className={styles.input}>
-            <input type="text" name="firstName" placeholder="first name" onChange={handleChange} />
-            {' '}
-            <input type="text" name="lastName" placeholder="last name" onChange={handleChange} />
-          </div>
-          <div className={styles.inputError}>
-            <div className={styles.inputErrorLeft}>{firstNameError}</div>
-            {' '}
-            <div className={styles.inputErrorRight}>{lastNameError}</div>
-          </div>
+      <form className={styles.form} onSubmit={handleSubmit} noValidate>
+        <div className={styles.input}>
+          <input type="text" name="firstName" placeholder="first name" onChange={handleChange} />
+          {' '}
+          <input type="text" name="lastName" placeholder="last name" onChange={handleChange} />
+        </div>
+        <div className={styles.inputError}>
+          <div className={styles.inputErrorLeft}>{firstNameError}</div>
+          {' '}
+          <div className={styles.inputErrorRight}>{lastNameError}</div>
+        </div>
 
-          <div className={styles.input}>
-            <input type="text" name="ssn" placeholder="social security number" onChange={handleChange} />
-            {' '}
-            <input type="email" name="email" placeholder="email" onChange={handleChange} />
-          </div>
-          <div className={styles.inputError}>
-            <span className={styles.inputErrorLeft}>{ssnError}</span>
-            {' '}
-            <span className={styles.inputErrorRight}>{emailError}</span>
-          </div>
+        <div className={styles.input}>
+          <input type="text" name="ssn" placeholder="social security number" onChange={handleChange} />
+          {' '}
+          <input type="email" name="email" placeholder="email" onChange={handleChange} />
+        </div>
+        <div className={styles.inputError}>
+          <span className={styles.inputErrorLeft}>{ssnError}</span>
+          {' '}
+          <span className={styles.inputErrorRight}>{emailError}</span>
+        </div>
 
-          <div className={styles.input}>
-            <input type="text" name="street" placeholder="street" onChange={handleChange} />
-            {' '}
-            <input type="text" name="city" placeholder="city" onChange={handleChange} />
-          </div>
-          <div className={styles.inputError}>
-            <span className={styles.inputErrorLeft}>{streetError}</span>
-            {' '}
-            <span className={styles.inputErrorRight}>{cityError}</span>
-          </div>
+        <div className={styles.input}>
+          <input type="text" name="street" placeholder="street" onChange={handleChange} />
+          {' '}
+          <input type="text" name="city" placeholder="city" onChange={handleChange} />
+        </div>
+        <div className={styles.inputError}>
+          <span className={styles.inputErrorLeft}>{streetError}</span>
+          {' '}
+          <span className={styles.inputErrorRight}>{cityError}</span>
+        </div>
 
-          <div className={styles.input}>
-            <input type="text" name="state" placeholder="state" onChange={handleChange} />
-            {' '}
-            <input type="text" name="zipcode" placeholder="zipcode" onChange={handleChange} />
-          </div>
-          <div className={styles.inputError}>
-            <span className={styles.inputErrorLeft}>{stateError}</span>
-            {' '}
-            <span className={styles.inputErrorRight}>{zipcodeError}</span>
-          </div>
+        <div className={styles.input}>
+          <input type="text" name="state" placeholder="state" onChange={handleChange} />
+          {' '}
+          <input type="text" name="zipcode" placeholder="zipcode" onChange={handleChange} />
+        </div>
+        <div className={styles.inputError}>
+          <span className={styles.inputErrorLeft}>{stateError}</span>
+          {' '}
+          <span className={styles.inputErrorRight}>{zipcodeError}</span>
+        </div>
 
-          <div className={styles.input}>
-            <input type="number" name="age" placeholder="age" onChange={handleChange} />
-            {' '}
-            <input type="number" name="height" placeholder="height" onChange={handleChange} />
-          </div>
-          <div className={styles.inputError}>
-            <span className={styles.inputErrorLeft}>{ageError}</span>
-            {' '}
-            <span className={styles.inputErrorRight}>{heightError}</span>
-          </div>
+        <div className={styles.input}>
+          <input type="number" name="age" placeholder="age" onChange={handleChange} />
+          {' '}
+          <input type="number" name="height" placeholder="height" onChange={handleChange} />
+        </div>
+        <div className={styles.inputError}>
+          <span className={styles.inputErrorLeft}>{ageError}</span>
+          {' '}
+          <span className={styles.inputErrorRight}>{heightError}</span>
+        </div>
 
-          <div className={styles.input}>
-            <input type="number" name="weight" placeholder="weight" onChange={handleChange} />
-            {' '}
-            <input type="text" name="insurance" placeholder="insurance" onChange={handleChange} />
-          </div>
-          <div className={styles.inputError}>
-            <span className={styles.inputErrorLeft}>{weightError}</span>
-            {' '}
-            <span className={styles.inputErrorRight}>{insuranceError}</span>
-          </div>
+        <div className={styles.input}>
+          <input type="number" name="weight" placeholder="weight" onChange={handleChange} />
+          {' '}
+          <input type="text" name="insurance" placeholder="insurance" onChange={handleChange} />
+        </div>
+        <div className={styles.inputError}>
+          <span className={styles.inputErrorLeft}>{weightError}</span>
+          {' '}
+          <span className={styles.inputErrorRight}>{insuranceError}</span>
+        </div>
 
-          <div>
-            {/* eslint-disable-next-line jsx-a11y/no-onchange */}
-            <select value="DEFAULT" className={styles.select} name="gender" onChange={handleChange}>
-              <option value="DEFAULT">--select gender--</option>
-              <option value="male">Male</option>
-              <option value="memale">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div className={styles.inputError}>{genderError}</div>
+        <div>
+          {/* eslint-disable-next-line jsx-a11y/no-onchange */}
+          <select value="DEFAULT" className={styles.select} name="gender" onChange={handleChange}>
+            <option value="DEFAULT">--select gender--</option>
+            <option value="male">Male</option>
+            <option value="memale">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div className={styles.inputError}>{genderError}</div>
 
-          <button type="submit">Create</button>
-        </form>
-      </>
+        <button type="submit">Create</button>
+      </form>
     </div>
   );
 };
