@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app component matches snapshot 1`] = `
+<div
+  className="card"
+>
+  <div>
+    <div>
+      Name:
+       undefined undefined
+    </div>
+    <div>
+      Age:
+       undefined
+    </div>
+    <div>
+      Gender:
+       undefined
+    </div>
+    <div>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Select
+      </button>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+`;
