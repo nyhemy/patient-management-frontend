@@ -23,7 +23,7 @@ This app is meant to simulate a real world patient-encounter tracking applicatio
 
 ### Setup Backend
 
-1. Download project backend, if you have proper access it is available at the link below :
+1. Download project backend by cloning it down from the git repo, if you have proper access it is available at the link below :
 *https://gitlab.catalyt.es/training/cycleworkinggroups/nationwide/associates/nicolas-hemenway/final-project-backend*.
 
 2. Open up the backend in Intellij. Run it using the Run arrow at the top right, or by right-clicking the **HotelApiApplication** file and selecting `Run HotelApiApplication....main()`.
@@ -32,12 +32,12 @@ This app is meant to simulate a real world patient-encounter tracking applicatio
 
 ### Setup Frontend
 
-1. Open up the frontend in VSCode. If you have to proper access rights it is available for download from the link below:
+1. Open up the frontend in VSCode. If you have to proper access rights it is available to be cloned down from the git repo below:
 *https://gitlab.catalyt.es/training/cycleworkinggroups/nationwide/associates/nicolas-hemenway/final-project-frontend*.
 
 2. Open your Git GUI and Navigate to the frontend app root repository.
 
-3. Run `npm install`.
+3. Run `npm install`, this will install any dependencies the app needs to run.
 
 4. Once all the dependencies have finished intalling run `npm start`. The app should automatically open in your browser.
 
