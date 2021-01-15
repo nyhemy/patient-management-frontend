@@ -306,7 +306,7 @@ const CreatePatient = () => {
 
         <div>
           {/* eslint-disable-next-line jsx-a11y/no-onchange */}
-          <select value="DEFAULT" className={styles.select} name="gender" onChange={handleChange}>
+          <select defaultValue="DEFAULT" className={styles.select} name="gender" onChange={handleChange}>
             <option value="DEFAULT">--select gender--</option>
             <option value="male">Male</option>
             <option value="memale">Female</option>
