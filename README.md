@@ -21,6 +21,9 @@ Project meant to simulate a real-world client, and is meant to test trainee prof
 
 This app is meant to simulate a real world patient-encounter tracking application proof-of-concept for a healthcare clinic chain called Super Health Inc. This includes a backend which stores patient and encounter data, as well as a frontend ui that allows the viewing, curation, and modification of said data.
 
+**--Note--** If you wish to use the Postman collection used to test all 2XX and 4XX functionals it can be found here:
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d58e35d6cbb3468b7bcc)
+
 ### Setup Backend
 
 1. Download project backend by cloning it down from the git repo, if you have proper access it is available at the link below :
@@ -29,9 +32,6 @@ This app is meant to simulate a real world patient-encounter tracking applicatio
 2. Open up the backend in Intellij. Run it using the Run arrow at the top right, or by right-clicking the **HotelApiApplication** file and selecting `Run HotelApiApplication....main()`.
 
 3. You can also stop the backend by hitting the red square at the top right.
-
-**--Note--** If you wish to use the Postman collection used to test all 2XX and 4XX functionals it can be found here:
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d58e35d6cbb3468b7bcc)
 
 ### Setup Frontend
 
