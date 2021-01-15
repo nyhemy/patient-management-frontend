@@ -9,14 +9,20 @@ import { get } from '../Requests';
 
 const axios = require('axios').default;
 
+/**
+ * Component containing form for curation of new Encounter
+ */
 const CreateEncounter = () => {
+  // id of Patient pulled from URL
   const { id } = useParams();
 
+  // states use for general component functionality
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [notFound, setNotFound] = useState(false);
 
+  // states for form input
   const [notes, setNotes] = useState('');
   const [visitCode, setVisitCode] = useState('');
   const [provider, setProvider] = useState('');
@@ -30,6 +36,7 @@ const CreateEncounter = () => {
   const [diastolic, setDiastolic] = useState(0);
   const [date, setDate] = useState('');
 
+  // states for error messages
   const [visitCodeError, setVisitCodeError] = useState('');
   const [providerError, setProviderError] = useState('');
   const [billingCodeError, setBillingCodeError] = useState('');
@@ -42,6 +49,9 @@ const CreateEncounter = () => {
   const [diastolicError, setDiastolicError] = useState('');
   const [dateError, setDateError] = useState('');
 
+  /**
+   * Checks if params are valid and retrieves patient info from database
+   */
   useEffect(() => {
     if (Number.isNaN(Number(id))) {
       setNotFound(true);
@@ -71,6 +81,9 @@ const CreateEncounter = () => {
       });
   }, [id]);
 
+  /**
+   * Clears all error states
+   */
   const clearErrors = () => {
     setVisitCodeError('');
     setProviderError('');
@@ -85,6 +98,11 @@ const CreateEncounter = () => {
     setDateError('');
   };
 
+  /**
+   * Handles change to inputs
+   *
+   * @param {event} event is when input changes its value
+   */
   const handleChange = (event) => {
     switch (event.target.name) {
       case 'notes':
@@ -128,6 +146,11 @@ const CreateEncounter = () => {
     }
   };
 
+  /**
+   * Handles form submission event, including validation and API calls
+   *
+   * @param {event} event is the form submission event
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -228,6 +251,7 @@ const CreateEncounter = () => {
         setErrorMsg('Oops something went wrong');
       });
   };
+
   return (
     <div className={styles.container}>
       <h2>Create Encounter</h2>

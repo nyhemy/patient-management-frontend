@@ -9,17 +9,23 @@ import { stateValidator, genderValidator } from '../Functions';
 
 const axios = require('axios').default;
 
+/**
+ * Shows and allows modification of specific Patient from database
+ */
 const PatientDetails = () => {
+  // patient id retrieved from URL
   const { id } = useParams();
 
+  // states used for general component functionality
   const [notFound, setNotFound] = useState(false);
-
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // state used to store encounters retrieved from database
   const [encounters, setEncounters] = useState([]);
 
+  // states used to store form input
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [ssn, setSsn] = useState('');
@@ -34,6 +40,7 @@ const PatientDetails = () => {
   const [insurance, setInsurance] = useState('');
   const [gender, setGender] = useState('');
 
+  // states used to manage errors
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
   const [ssnError, setSsnError] = useState('');
@@ -48,6 +55,9 @@ const PatientDetails = () => {
   const [insuranceError, setInsuranceError] = useState('');
   const [genderError, setGenderError] = useState('');
 
+  /**
+   * Checks if id is valid and retrieves specific patient/encounters for the patient from database
+   */
   useEffect(() => {
     if (Number.isNaN(Number(id))) {
       setNotFound(true);
@@ -103,14 +113,23 @@ const PatientDetails = () => {
       });
   }, [id, notFound]);
 
+  /**
+   * Redirects to patient creation component
+   */
   const createEncounter = () => {
     history.push(`/patients/${id}/encounters/create`);
   };
 
+  /**
+   * Redirects to patients component
+   */
   const patients = () => {
     history.push('/patients');
   };
 
+  /**
+   * Clears all error states
+   */
   const clearErrors = () => {
     setFirstNameError('');
     setLastNameError('');
@@ -127,6 +146,11 @@ const PatientDetails = () => {
     setGenderError('');
   };
 
+  /**
+   * Handles changes to input
+   *
+   * @param {event} event is input change event
+   */
   const handleChange = (event) => {
     switch (event.target.name) {
       case 'firstName':
@@ -173,6 +197,11 @@ const PatientDetails = () => {
     }
   };
 
+  /**
+   * Handles form submission event, including validation and API calls
+   *
+   * @param {event} event is the form submission event
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
 

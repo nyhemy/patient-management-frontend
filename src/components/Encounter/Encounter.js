@@ -1,28 +1,26 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './Encounter.module.css';
 
+/**
+ * Component which takes data from backend Encounter entity and displays it
+ *
+ * @param {*} props are props passed to component when it is called
+ */
 const Encounter = (props) => {
   const {
     id,
     patientId,
-    notes,
     visitCode,
     provider,
-    billingCode,
-    icd10,
-    totalCost,
-    copay,
-    chiefComplaint,
-    pulse,
-    systolic,
-    diastolic,
     date
   } = props;
 
   const history = useHistory();
 
+  /**
+   * Redirects to EncounterDetails
+   */
   const encounterDetails = () => {
     history.push(`/patients/${patientId}/encounters/${id}`);
   };

@@ -10,15 +10,20 @@ import {
 
 const axios = require('axios').default;
 
+/**
+ * Shows and allows modification of specific Encounter from database
+ */
 const EncounterDetails = () => {
+  // id of patient to whom the encounter belongs, as well as the encounter id
   const { id, encounterId } = useParams();
 
+  // states used for general component functionality
   const [notFound, setNotFound] = useState(false);
-
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // states for form input
   const [notes, setNotes] = useState('');
   const [visitCode, setVisitCode] = useState('');
   const [provider, setProvider] = useState('');
@@ -32,6 +37,7 @@ const EncounterDetails = () => {
   const [diastolic, setDiastolic] = useState('');
   const [date, setDate] = useState('');
 
+  // states used for error handling
   const [visitCodeError, setVisitCodeError] = useState('');
   const [providerError, setProviderError] = useState('');
   const [billingCodeError, setBillingCodeError] = useState('');
@@ -44,6 +50,9 @@ const EncounterDetails = () => {
   const [diastolicError, setDiastolicError] = useState('');
   const [dateError, setDateError] = useState('');
 
+  /**
+   * Checks if id and encounter id are valid, and retrieves encounter from API
+   */
   useEffect(() => {
     if (Number.isNaN(Number(id))) {
       setNotFound(true);
@@ -93,6 +102,9 @@ const EncounterDetails = () => {
       });
   }, [encounterId, id, notes]);
 
+  /**
+   * Clears all error states
+   */
   const clearErrors = () => {
     setVisitCodeError('');
     setProviderError('');
@@ -107,6 +119,11 @@ const EncounterDetails = () => {
     setDateError('');
   };
 
+  /**
+   * Handles changes to inputs
+   *
+   * @param {event} event is when input changes its value
+   */
   const handleChange = (event) => {
     switch (event.target.name) {
       case 'notes':
@@ -150,6 +167,11 @@ const EncounterDetails = () => {
     }
   };
 
+  /**
+   * Handles form submission event, including validation and API calls
+   *
+   * @param {event} event is the form submission event
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
 

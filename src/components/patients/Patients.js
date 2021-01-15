@@ -6,12 +6,17 @@ import { get } from '../Requests';
 import Patient from '../patient/Patient';
 
 const Patients = () => {
+  // states used for general component functionality
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // stores patients retrieved from database
   const [patients, setPatients] = useState([]);
 
+  /**
+   * Retrieves patients from database
+   */
   useEffect(() => {
     setErrorMsg('');
     setLoading(true);
@@ -27,6 +32,9 @@ const Patients = () => {
       });
   }, []);
 
+  /**
+   * Redirects to patient creation component
+   */
   const createPatient = () => {
     history.push('/patients/create');
   };

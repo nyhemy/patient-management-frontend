@@ -7,6 +7,9 @@ import EncounterDetails from '../encounterDetails/EncounterDetails';
 import NotFound from '../notFound/NotFound';
 import CreateEncounter from '../createEncounter/CreateEncounter';
 
+/**
+ * Skeleton of the App, contains Routing info.
+ */
 const App = () => (
   <Router>
     <Switch>

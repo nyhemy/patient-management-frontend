@@ -8,10 +8,12 @@ import { stateValidator, genderValidator } from '../Functions';
 const axios = require('axios').default;
 
 const CreatePatient = () => {
+  // states used for general component functionality
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // states used for form inputs
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [ssn, setSsn] = useState('');
@@ -26,6 +28,7 @@ const CreatePatient = () => {
   const [insurance, setInsurance] = useState('');
   const [gender, setGender] = useState('');
 
+  // states used for error handling
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
   const [ssnError, setSsnError] = useState('');
@@ -40,6 +43,9 @@ const CreatePatient = () => {
   const [insuranceError, setInsuranceError] = useState('');
   const [genderError, setGenderError] = useState('');
 
+  /**
+   * clears all error states
+   */
   const clearErrors = () => {
     setFirstNameError('');
     setLastNameError('');
@@ -56,6 +62,11 @@ const CreatePatient = () => {
     setGenderError('');
   };
 
+  /**
+   * Handles changes to inputs
+   *
+   * @param {event} event is when input changes its value
+   */
   const handleChange = (event) => {
     switch (event.target.name) {
       case 'firstName':
@@ -102,6 +113,11 @@ const CreatePatient = () => {
     }
   };
 
+  /**
+   * Handles form submission event, including validaion and API calls
+   *
+   * @param {event} event is the form submission event
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     clearErrors();

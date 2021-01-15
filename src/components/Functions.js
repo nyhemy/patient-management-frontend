@@ -1,5 +1,10 @@
 import { states, validGenders } from './Constants';
 
+/**
+ * Checks if string matches valid state acronym
+ *
+ * @param {string} state is a two character string that should match a state acronym
+ */
 const stateValidator = (state) => {
   let stateValid = false;
 
@@ -12,6 +17,11 @@ const stateValidator = (state) => {
   return stateValid;
 };
 
+/**
+ * Checks if a provided string matches valid genders
+ *
+ * @param {string} gender is a string that should match a valid gender
+ */
 const genderValidator = (gender) => {
   let genderValid = false;
 

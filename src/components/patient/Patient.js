@@ -5,6 +5,11 @@ import loadImg from '../ajax-loader.gif';
 
 const axios = require('axios').default;
 
+/**
+ * Component which takes data from backend Patient entity and displays it
+ *
+ * @param {*} props are props passed to component when it is called
+ */
 const Patient = (props) => {
   const {
     id, firstName, lastName, age, gender
@@ -14,10 +19,16 @@ const Patient = (props) => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  /**
+   * Redirects to PatientDetails
+   */
   const patientDetails = () => {
     history.push(`/patients/${id}`);
   };
 
+  /**
+   * Handles delete request for Patient to API
+   */
   const deletePatient = () => {
     setLoading(true);
     axios.delete(`http://localhost:8080/patients/${id}`, {
