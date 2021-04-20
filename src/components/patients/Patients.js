@@ -48,7 +48,7 @@ const Patients = () => {
           ? <img src={loadImg} alt="loading..." />
           : errorMsg === '' && (
           <>
-            <div><button type="button" onClick={createPatient}>Create</button></div>
+            <div data-testid="patient-card"><button type="button" onClick={createPatient}>Create</button></div>
             {patients.map((data) => (
               <div className={styles.column} key={data.id}>
                 <Patient

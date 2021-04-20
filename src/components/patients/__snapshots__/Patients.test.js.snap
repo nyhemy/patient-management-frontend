@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly and matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="center"
+  >
+    <h2>
+      Patients
+    </h2>
+    <div
+      class="row"
+    >
+      <img
+        alt="loading..."
+        src="ajax-loader.gif"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
