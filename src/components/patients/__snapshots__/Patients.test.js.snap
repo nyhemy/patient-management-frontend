@@ -1,21 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly and matches snapshot 1`] = `
-<DocumentFragment>
+exports[`renders properly and matches snapshot 1`] = `
+<div
+  className="center"
+>
+  <h2>
+    Patients
+  </h2>
+  
   <div
-    class="center"
+    className="row"
   >
-    <h2>
-      Patients
-    </h2>
     <div
-      class="row"
+      data-testid="patient-card"
     >
-      <img
-        alt="loading..."
-        src="ajax-loader.gif"
-      />
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Create
+      </button>
     </div>
   </div>
-</DocumentFragment>
+</div>
 `;

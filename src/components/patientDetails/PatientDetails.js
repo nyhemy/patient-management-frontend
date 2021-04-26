@@ -1,8 +1,11 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Encounter from '../Encounter/Encounter';
 import styles from './PatientDetails.module.css';
 import loadImg from '../ajax-loader.gif';
+// eslint-disable-next-line no-unused-vars
 import { get } from '../Requests';
 import { emailRegex, zipcodeRegex, ssnRegex } from '../Constants';
 import { stateValidator, genderValidator } from '../Functions';
@@ -17,12 +20,15 @@ const PatientDetails = () => {
   const { id } = useParams();
 
   // states used for general component functionality
+
   const [notFound, setNotFound] = useState(false);
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [errorStatus, setErrorStatus] = useState('');
 
   // state used to store encounters retrieved from database
+  // eslint-disable-next-line no-unused-vars
   const [encounters, setEncounters] = useState([]);
 
   // states used to store form input
@@ -58,16 +64,70 @@ const PatientDetails = () => {
   /**
    * Checks if id is valid and retrieves specific patient/encounters for the patient from database
    */
-  useEffect(() => {
-    if (Number.isNaN(Number(id))) {
-      setNotFound(true);
-      setErrorMsg('404 Not Found');
-    }
+  // useEffect(() => {
+  //   if (Number.isNaN(Number(id))) {
+  //     setNotFound(true);
+  //     setErrorMsg('404 Not Found');
+  //   }
+  // }, [id]);
 
+  useEffect(() => {
     setLoading(true);
-    get(`http://localhost:8080/patients/${id}`)
-      .then((response) => {
-        const res = response.data;
+    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line prefer-const
+
+    // get(`http://localhost:8080/patients/${id}`)
+    const patientsRequest = fetch(`http://localhost:8080/patients/${id}`, {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    });
+
+    Promise.resolve(patientsRequest)
+      // eslint-disable-next-line consistent-return
+      .then((patientsResponse) => {
+        setLoading(false);
+        if (patientsResponse.ok) {
+          get(`http://localhost:8080/patients/${id}/encounters`)
+            .then((encounterResponse) => {
+              setLoading(false);
+              setEncounters(encounterResponse.data);
+            })
+            // eslint-disable-next-line no-unused-vars
+            .catch((error) => {
+              setLoading(false);
+              setErrorMsg('Oops 2');
+            });
+          return Promise.resolve(patientsResponse.json());
+        }
+        setNotFound(true);
+        setErrorStatus(patientsResponse.status);
+        // switch (patientsResponse.status) {
+        //   case 404:
+        //     setNotFound(true);
+        //     setErrorStatus(404);
+        //     break;
+        //   default:
+        //     setNotFound(true);
+        //     break;
+        // }
+
+        // if (patientsResponse.status === 404) {
+        //   setLoading(false);
+        //   setNotFound(true);
+        //   setErrorMsg('404 Not Found');
+        // } else {
+        //   setLoading(false);
+        //   // eslint-disable-next-line no-unused-expressions
+        //   Number.isNaN(Number(id)) ? setErrorMsg('404 Not Found') : setErrorMsg('Oops');
+        // }
+        // else if (error.request) {
+        //   setLoading(false);
+        //   setErrorMsg('Oops something went wrong');
+        // }
+      })
+      .then((responseData) => {
+        const res = responseData;
 
         setFirstName(res.firstName);
         setLastName(res.lastName);
@@ -83,35 +143,51 @@ const PatientDetails = () => {
         setInsurance(res.insurance);
         setGender(res.gender);
       })
-      .catch((error) => {
-        if (error.response) {
-          if (error.response.status === 404) {
-            setLoading(false);
-            setNotFound(true);
+      .catch(() => {
+        setLoading(false);
+        // eslint-disable-next-line no-unused-expressions
+        Number.isNaN(Number(id)) ? setErrorMsg('Id not a number') : errorStatus ? setErrorMsg(`Error ${errorStatus}`) : setErrorMsg('Oops something went wrong');
+        switch (errorStatus) {
+          case 404:
             setErrorMsg('404 Not Found');
-          } else {
-            setLoading(false);
-            // eslint-disable-next-line no-unused-expressions
-            Number.isNaN(Number(id)) ? setErrorMsg('404 Not Found') : setErrorMsg('Oops something went wrong');
-          }
-        } else if (error.request) {
-          setLoading(false);
-          setErrorMsg('Oops something went wrong');
+            break;
+          case 400:
+            Number.isNaN(Number(id)) ? setErrorMsg('Id not a number') : setErrorMsg('Oops something went wrong');
+            break;
+          case '':
+            setErrorMsg('Oops something went wrong');
+            break;
+          default:
+            setErrorMsg(`Error ${errorStatus}`);
+            break;
         }
       });
+  }, [errorStatus, id]);
 
-    // eslint-disable-next-line no-unused-expressions
-    !notFound && get(`http://localhost:8080/patients/${id}/encounters`)
-      .then((response) => {
-        setLoading(false);
-        setEncounters(response.data);
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        setLoading(false);
-        setErrorMsg('Oops something went wrong');
-      });
-  }, [id, notFound]);
+  // useEffect(() => {
+  //   // eslint-disable-next-line no-unused-expressions
+  //   !notFound && get(`http://localhost:8080/patients/${id}/encounters`)
+  //     .then((response) => {
+  //       setLoading(false);
+  //       setEncounters(response.data);
+  //     })
+  //     // eslint-disable-next-line no-unused-vars
+  //     .catch((error) => {
+  //       setLoading(false);
+  //       setErrorMsg('Oops 2');
+  //     });
+  // }, [id, notFound]);
+
+  // const getEncounter = () => get(`http://localhost:8080/patients/${id}/encounters`)
+  //   .then((response) => {
+  //     setLoading(false);
+  //     setEncounters(response.data);
+  //   })
+  //   // eslint-disable-next-line no-unused-vars
+  //   .catch((error) => {
+  //     setLoading(false);
+  //     setErrorMsg('Oops 2');
+  //   });
 
   /**
    * Redirects to patient creation component

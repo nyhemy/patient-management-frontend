@@ -1,0 +1,387 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders properly and matches snapshot 1`] = `
+<div
+  className="container"
+>
+  <h2
+    className="center"
+  >
+    Patient Details
+  </h2>
+  <div
+    className="center"
+  >
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      Back to Patients
+    </button>
+  </div>
+  <h3
+    className="error"
+  >
+    
+  </h3>
+  <form
+    className="form"
+    noValidate={true}
+    onSubmit={[Function]}
+  >
+    <h3
+      className="center"
+    >
+      Edit Patient
+    </h3>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Id:
+      </span>
+       
+      1
+    </div>
+    <div
+      className="inputError"
+    />
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        First Name:
+      </span>
+       
+      <input
+        className="right"
+        name="firstName"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Last Name:
+      </span>
+       
+      <input
+        className="right"
+        name="lastName"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        SSN:
+      </span>
+       
+      <input
+        className="right"
+        name="ssn"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Email:
+      </span>
+       
+      <input
+        className="right"
+        name="email"
+        onChange={[Function]}
+        type="email"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Street:
+      </span>
+       
+      <input
+        className="right"
+        name="street"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        City:
+      </span>
+       
+      <input
+        className="right"
+        name="city"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        State:
+      </span>
+       
+      <input
+        className="right"
+        name="state"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Zip Code:
+      </span>
+       
+      <input
+        className="right"
+        name="zipcode"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Age:
+      </span>
+       
+      <input
+        className="right"
+        name="age"
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Height:
+      </span>
+       
+      <input
+        className="right"
+        name="height"
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Weight:
+      </span>
+       
+      <input
+        className="right"
+        name="weight"
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Insurance:
+      </span>
+       
+      <input
+        className="right"
+        name="insurance"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Gender:
+      </span>
+       
+      <select
+        className="select"
+        name="gender"
+        onChange={[Function]}
+        value=""
+      >
+        <option
+          value="DEFAULT"
+        >
+          --select gender--
+        </option>
+        <option
+          value="male"
+        >
+          Male
+        </option>
+        <option
+          value="female"
+        >
+          Female
+        </option>
+        <option
+          value="other"
+        >
+          Other
+        </option>
+      </select>
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="button"
+    >
+      <button
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+  <div
+    className="encounterPadding"
+  >
+    <h3
+      className="center"
+    >
+      Encounters:
+    </h3>
+    <div
+      className="center"
+    >
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Create Encounter
+      </button>
+    </div>
+  </div>
+</div>
+`;

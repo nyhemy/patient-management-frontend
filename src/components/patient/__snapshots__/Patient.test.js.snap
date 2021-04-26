@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`app component matches snapshot 1`] = `
+exports[`renders w/o crashing and matches snapshot 1`] = `
 <div
   className="card"
 >

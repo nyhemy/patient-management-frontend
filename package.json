@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.30.3",
     "jest-fetch-mock": "^3.0.3"
   }
 }

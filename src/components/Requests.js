@@ -7,8 +7,8 @@ const axios = require('axios').default;
  */
 const get = (endpoint) => axios.get(endpoint, {
   headers: {
-    'Content-Type': 'application/json',
-    mode: 'cors'
+    'Content-Type': 'application/json'
+    // mode: 'cors'
   }
 });
 

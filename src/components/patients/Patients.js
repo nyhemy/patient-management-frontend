@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import loadImg from '../ajax-loader.gif';
 import styles from './Patients.module.css';
-import { get } from '../Requests';
+// import { get } from '../Requests';
 import Patient from '../patient/Patient';
 
 const Patients = () => {
@@ -20,16 +20,35 @@ const Patients = () => {
   useEffect(() => {
     setErrorMsg('');
     setLoading(true);
-    get('http://localhost:8080/patients')
-      .then((response) => {
-        setLoading(false);
-        setPatients(response.data);
+    const patientsRequest = fetch('http://localhost:8080/patients', {
+      headers: new Headers({
+        'Content-Type': 'application/json'
       })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
+    });
+
+    Promise.resolve(patientsRequest)
+      .then((encounterResponse) => {
+        if (encounterResponse.ok) {
+          return Promise.resolve(encounterResponse.json());
+        }
+        throw new Error(encounterResponse.status.toString());
+      }).then((encounterData) => {
+        setLoading(false);
+        setPatients(encounterData);
+      }).catch(() => {
         setLoading(false);
         setErrorMsg('Oops something went wrong');
       });
+    // get('http://localhost:8080/patients')
+    //   .then((response) => {
+    //     setLoading(false);
+    //     setPatients(response.data);
+    //   })
+    //   // eslint-disable-next-line no-unused-vars
+    //   .catch((error) => {
+    //     setLoading(false);
+    //     setErrorMsg('Oops something went wrong');
+    //   });
   }, []);
 
   /**

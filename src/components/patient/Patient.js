@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styles from './Patient.module.css';
 import loadImg from '../ajax-loader.gif';
 
-const axios = require('axios').default;
+// const axios = require('axios').default;
 
 /**
  * Component which takes data from backend Patient entity and displays it
@@ -31,7 +31,18 @@ const Patient = (props) => {
    */
   const deletePatient = () => {
     setLoading(true);
-    axios.delete(`http://localhost:8080/patients/${id}`, {
+    // axios.delete(`http://localhost:8080/patients/${id}`, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     mode: 'cors',
+    //     Authorization: `Bearer ${sessionStorage.getItem('token')}`
+    //   },
+    //   data: {
+    //     id
+    //   }
+    // })
+    const requestOptions = {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         mode: 'cors',
@@ -40,17 +51,15 @@ const Patient = (props) => {
       data: {
         id
       }
-    })
+    };
+    const patientRequest = fetch(`http://localhost:8080/patients/${id}`, requestOptions);
+
+    Promise.resolve(patientRequest)
       // eslint-disable-next-line no-unused-vars
-      .then((response) => {
+      .then((patientsResponse) => {
         setLoading(false);
-        window.location.reload();
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        setLoading(false);
-        if (error.response) {
-          switch (error.response.status) {
+        if (!patientsResponse.ok) {
+          switch (patientsResponse.status) {
             case 409:
               setErrorMsg('Cannot delete patient with existing encounters');
               break;
@@ -59,8 +68,25 @@ const Patient = (props) => {
               break;
           }
         } else {
-          setErrorMsg('Oops something went wrong');
+          window.location.reload();
         }
+      })
+      // eslint-disable-next-line no-unused-vars
+      .catch(() => {
+      // .catch((error) => {
+        setLoading(false);
+        // if (error.response) {
+        //   switch (error.response.status) {
+        //     case 409:
+        //       setErrorMsg('Cannot delete patient with existing encounters');
+        //       break;
+        //     default:
+        //       setErrorMsg('Oops something went wrong');
+        //       break;
+        //   }
+        // } else {
+        setErrorMsg('Oops something went wrong');
+        // }
       });
   };
 
