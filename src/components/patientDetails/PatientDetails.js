@@ -77,7 +77,14 @@ const PatientDetails = () => {
     // eslint-disable-next-line prefer-const
 
     // get(`http://localhost:8080/patients/${id}`)
+
     const patientsRequest = fetch(`http://localhost:8080/patients/${id}`, {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    });
+
+    const encounterRequest = fetch(`http://localhost:8080/patients/${id}/encounters`, {
       headers: new Headers({
         'Content-Type': 'application/json'
       })
@@ -88,15 +95,21 @@ const PatientDetails = () => {
       .then((patientsResponse) => {
         setLoading(false);
         if (patientsResponse.ok) {
-          get(`http://localhost:8080/patients/${id}/encounters`)
+          Promise.resolve(encounterRequest)
             .then((encounterResponse) => {
+              if (encounterResponse.ok) {
+                return Promise.resolve(encounterResponse.json());
+              }
+              throw new Error(encounterResponse.status.toString());
+            })
+            .then((encounterData) => {
               setLoading(false);
-              setEncounters(encounterResponse.data);
+              setEncounters(encounterData);
             })
             // eslint-disable-next-line no-unused-vars
             .catch((error) => {
               setLoading(false);
-              setErrorMsg('Oops 2');
+              setErrorMsg('Catch oops 2');
             });
           return Promise.resolve(patientsResponse.json());
         }

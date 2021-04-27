@@ -49,7 +49,11 @@ it('displays header and back button', () => {
 
 it('checks if id is 404', async () => {
   // need to change useParam, change from mock to spyOn
-  fetch.mockResponseOnce('{ "id": 1 }', { status: 404, headers: { 'content-type': 'application/json' } });
+  fetch
+    .mockResponse('{ "id": 1 }', { status: 404, headers: { 'content-type': 'application/json' } });
+  // eslint-disable-next-line max-len
+  // .mockResponseOnce('{ "id": 1 }', { status: 200, headers: { 'content-type': 'application/json' } });
+
   const { getByText, queryByText } = render(toRender('999'));
 
   await waitFor(() => getByText('404 Not Found'));
@@ -58,8 +62,23 @@ it('checks if id is 404', async () => {
 
 it('checks if id is nan', async () => {
   // need to change useParam, change from mock to spyOn
+  fetch
+    .mockResponse('{ "id": 1 }', { status: 400, headers: { 'content-type': 'application/json' } });
+    // .once('{ "id": 1 }', { status: 200, headers: { 'content-type': 'application/json' } });
+
   const { getByText, queryByText } = render(toRender('garbage'));
 
-  await waitFor(() => getByText('Oops something went wrong'));
-  expect(screen.queryByText('Oops something went wrong')).toBeTruthy();
+  await waitFor(() => getByText('Id not a number'));
+  expect(screen.queryByText('Id not a number')).toBeTruthy();
+});
+
+it('catches encounter error', async () => {
+  fetch
+    .mockResponseOnce('{ "id": 1 }', { status: 200, headers: { 'content-type': 'application/json' } })
+    .mockResponseOnce('{ "id": 1 }', { status: 400, headers: { 'content-type': 'application/json' } });
+
+  const { getByText, queryByText } = render(toRender('1'));
+
+  await waitFor(() => getByText('Catch oops 2'));
+  expect(screen.queryByText('Catch oops 2')).toBeTruthy();
 });
