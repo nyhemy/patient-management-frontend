@@ -59,6 +59,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="f-name"
         name="firstName"
         onChange={[Function]}
         type="text"
@@ -81,6 +82,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="l-name"
         name="lastName"
         onChange={[Function]}
         type="text"
@@ -103,6 +105,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="ssn"
         name="ssn"
         onChange={[Function]}
         type="text"
@@ -125,6 +128,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="email"
         name="email"
         onChange={[Function]}
         type="email"
@@ -147,6 +151,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="street"
         name="street"
         onChange={[Function]}
         type="text"
@@ -169,6 +174,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="city"
         name="city"
         onChange={[Function]}
         type="text"
@@ -191,6 +197,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="state"
         name="state"
         onChange={[Function]}
         type="text"
@@ -213,6 +220,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="zipcode"
         name="zipcode"
         onChange={[Function]}
         type="text"
@@ -235,6 +243,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="age"
         name="age"
         onChange={[Function]}
         type="number"
@@ -257,6 +266,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="height"
         name="height"
         onChange={[Function]}
         type="number"
@@ -279,6 +289,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="weight"
         name="weight"
         onChange={[Function]}
         type="number"
@@ -301,6 +312,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="insurance"
         name="insurance"
         onChange={[Function]}
         type="text"
@@ -323,6 +335,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <select
         className="select"
+        data-testid="gender-select"
         name="gender"
         onChange={[Function]}
         value=""
@@ -370,7 +383,7 @@ exports[`renders properly and matches snapshot 1`] = `
     <h3
       className="center"
     >
-      Encounters:
+      Encounters
     </h3>
     <div
       className="center"

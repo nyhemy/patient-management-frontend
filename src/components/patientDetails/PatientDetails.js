@@ -84,17 +84,19 @@ const PatientDetails = () => {
       })
     });
 
-    const encounterRequest = fetch(`http://localhost:8080/patients/${id}/encounters`, {
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
-    });
+    let encounterRequest;
 
     Promise.resolve(patientsRequest)
-      // eslint-disable-next-line consistent-return
       .then((patientsResponse) => {
         setLoading(false);
+
         if (patientsResponse.ok) {
+          encounterRequest = fetch(`http://localhost:8080/patients/${id}/encounters`, {
+            headers: new Headers({
+              'Content-Type': 'application/json'
+            })
+          });
+
           Promise.resolve(encounterRequest)
             .then((encounterResponse) => {
               if (encounterResponse.ok) {
@@ -109,12 +111,14 @@ const PatientDetails = () => {
             // eslint-disable-next-line no-unused-vars
             .catch((error) => {
               setLoading(false);
-              setErrorMsg('Catch oops 2');
+              setErrorMsg('Error with encounter');
             });
           return Promise.resolve(patientsResponse.json());
         }
+
         setNotFound(true);
         setErrorStatus(patientsResponse.status);
+        throw new Error(patientsResponse.status.toString());
         // switch (patientsResponse.status) {
         //   case 404:
         //     setNotFound(true);
@@ -141,6 +145,8 @@ const PatientDetails = () => {
       })
       .then((responseData) => {
         const res = responseData;
+        // console.log(res);
+        // console.log(`firstName: ${res.firstName}`);
 
         setFirstName(res.firstName);
         setLastName(res.lastName);
@@ -158,6 +164,7 @@ const PatientDetails = () => {
       })
       .catch(() => {
         setLoading(false);
+
         // eslint-disable-next-line no-unused-expressions
         Number.isNaN(Number(id)) ? setErrorMsg('Id not a number') : errorStatus ? setErrorMsg(`Error ${errorStatus}`) : setErrorMsg('Oops something went wrong');
         switch (errorStatus) {
@@ -428,84 +435,84 @@ const PatientDetails = () => {
         <div className={styles.input}>
           <span className={styles.left}>First Name:</span>
           {' '}
-          <input className={styles.right} value={firstName} name="firstName" type="text" onChange={handleChange} />
+          <input data-testid="f-name" className={styles.right} value={firstName} name="firstName" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{firstNameError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Last Name:</span>
           {' '}
-          <input className={styles.right} value={lastName} name="lastName" type="text" onChange={handleChange} />
+          <input data-testid="l-name" className={styles.right} value={lastName} name="lastName" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{lastNameError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>SSN:</span>
           {' '}
-          <input className={styles.right} value={ssn} name="ssn" type="text" onChange={handleChange} />
+          <input data-testid="ssn" className={styles.right} value={ssn} name="ssn" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{ssnError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Email:</span>
           {' '}
-          <input className={styles.right} value={email} name="email" type="email" onChange={handleChange} />
+          <input data-testid="email" className={styles.right} value={email} name="email" type="email" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{emailError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Street:</span>
           {' '}
-          <input className={styles.right} value={street} name="street" type="text" onChange={handleChange} />
+          <input data-testid="street" className={styles.right} value={street} name="street" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{streetError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>City:</span>
           {' '}
-          <input className={styles.right} value={city} name="city" type="text" onChange={handleChange} />
+          <input data-testid="city" className={styles.right} value={city} name="city" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{cityError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>State:</span>
           {' '}
-          <input className={styles.right} value={state} name="state" type="text" onChange={handleChange} />
+          <input data-testid="state" className={styles.right} value={state} name="state" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{stateError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Zip Code:</span>
           {' '}
-          <input className={styles.right} value={zipcode} name="zipcode" type="text" onChange={handleChange} />
+          <input data-testid="zipcode" className={styles.right} value={zipcode} name="zipcode" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{zipcodeError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Age:</span>
           {' '}
-          <input className={styles.right} value={age} name="age" type="number" onChange={handleChange} />
+          <input data-testid="age" className={styles.right} value={age} name="age" type="number" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{ageError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Height:</span>
           {' '}
-          <input className={styles.right} value={height} name="height" type="number" onChange={handleChange} />
+          <input data-testid="height" className={styles.right} value={height} name="height" type="number" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{heightError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Weight:</span>
           {' '}
-          <input className={styles.right} value={weight} name="weight" type="number" onChange={handleChange} />
+          <input data-testid="weight" className={styles.right} value={weight} name="weight" type="number" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{weightError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Insurance:</span>
           {' '}
-          <input className={styles.right} value={insurance} name="insurance" type="text" onChange={handleChange} />
+          <input data-testid="insurance" className={styles.right} value={insurance} name="insurance" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{insuranceError}</div>
 
@@ -513,7 +520,7 @@ const PatientDetails = () => {
           <span className={styles.left}>Gender:</span>
           {' '}
           {/* eslint-disable-next-line jsx-a11y/no-onchange */}
-          <select value={gender} className={styles.select} name="gender" onChange={handleChange}>
+          <select data-testid="gender-select" value={gender} className={styles.select} name="gender" onChange={handleChange}>
             <option value="DEFAULT">--select gender--</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -526,7 +533,7 @@ const PatientDetails = () => {
       </form>
       )}
       <div className={styles.encounterPadding}>
-        <h3 className={styles.center}>Encounters:</h3>
+        <h3 className={styles.center}>Encounters</h3>
         <div className={styles.center}><button type="button" onClick={createEncounter}>Create Encounter</button></div>
       </div>
 

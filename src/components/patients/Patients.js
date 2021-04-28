@@ -20,6 +20,7 @@ const Patients = () => {
   useEffect(() => {
     setErrorMsg('');
     setLoading(true);
+
     const patientsRequest = fetch('http://localhost:8080/patients', {
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -27,11 +28,11 @@ const Patients = () => {
     });
 
     Promise.resolve(patientsRequest)
-      .then((encounterResponse) => {
-        if (encounterResponse.ok) {
-          return Promise.resolve(encounterResponse.json());
+      .then((patientsResponse) => {
+        if (patientsResponse.ok) {
+          return Promise.resolve(patientsResponse.json());
         }
-        throw new Error(encounterResponse.status.toString());
+        throw new Error(patientsResponse.status.toString());
       }).then((encounterData) => {
         setLoading(false);
         setPatients(encounterData);
