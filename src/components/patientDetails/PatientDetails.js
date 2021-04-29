@@ -10,7 +10,7 @@ import { get } from '../Requests';
 import { emailRegex, zipcodeRegex, ssnRegex } from '../Constants';
 import { stateValidator, genderValidator } from '../Functions';
 
-const axios = require('axios').default;
+// const axios = require('axios').default;
 
 /**
  * Shows and allows modification of specific Patient from database
@@ -375,38 +375,71 @@ const PatientDetails = () => {
 
     setLoading(true);
 
-    axios.put(`http://localhost:8080/patients/${id}`,
-      {
-        id,
-        firstName,
-        lastName,
-        ssn,
-        email,
-        street,
-        city,
-        state,
-        postal: zipcode,
-        age,
-        height,
-        weight,
-        insurance,
-        gender
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          mode: 'cors'
-        }
-      })
+    // axios.put(`http://localhost:8080/patients/${id}`,
+    //   {
+    //     id,
+    //     firstName,
+    //     lastName,
+    //     ssn,
+    //     email,
+    //     street,
+    //     city,
+    //     state,
+    //     postal: zipcode,
+    //     age,
+    //     height,
+    //     weight,
+    //     insurance,
+    //     gender
+    //   },
+    //   {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       mode: 'cors'
+    //     }
+    //   })
+
+    const putData = {
+      id,
+      firstName,
+      lastName,
+      ssn,
+      email,
+      street,
+      city,
+      state,
+      postal: zipcode,
+      age,
+      height,
+      weight,
+      insurance,
+      gender
+    };
+
+    const patientPut = fetch(`http://localhost:8080/patients/${id}`, {
+      method: 'PUT',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify(putData)
+    });
+
+    Promise.resolve(patientPut)
       // eslint-disable-next-line no-unused-vars
-      .then((response) => {
+      .then((putResponse) => {
+        // console.log(putData);
+        // console.log(putResponse);
+        // if (putResponse.ok) {
+        //   return Promise.resolve(putResponse.json());
+        // }
+        // throw new Error(putResponse.status.toString());
         setLoading(false);
         history.push('/patients');
       })
       // eslint-disable-next-line no-unused-vars
       .catch((error) => {
         setLoading(false);
-        setErrorMsg('Oops something went wrong');
+        setErrorMsg('PUT: Oops something went wrong');
       });
   };
 
@@ -421,7 +454,7 @@ const PatientDetails = () => {
       </h3>
 
       {!notFound && (
-      <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      <form data-testid="form" className={styles.form} onSubmit={handleSubmit} noValidate>
 
         <h3 className={styles.center}>Edit Patient</h3>
 

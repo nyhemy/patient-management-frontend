@@ -7,18 +7,8 @@ exports[`renders properly and matches snapshot 1`] = `
   <h2
     className="center"
   >
-    Patient Details
+    Encounter Details
   </h2>
-  <div
-    className="center"
-  >
-    <button
-      onClick={[Function]}
-      type="button"
-    >
-      Back to Patients
-    </button>
-  </div>
   <h3
     className="error"
   >
@@ -26,14 +16,13 @@ exports[`renders properly and matches snapshot 1`] = `
   </h3>
   <form
     className="form"
-    data-testid="form"
     noValidate={true}
     onSubmit={[Function]}
   >
     <h3
       className="center"
     >
-      Edit Patient
+      Edit Encounter
     </h3>
     <div
       className="input"
@@ -55,13 +44,32 @@ exports[`renders properly and matches snapshot 1`] = `
       <span
         className="left"
       >
-        First Name:
+        Notes:
       </span>
        
       <input
         className="right"
-        data-testid="f-name"
-        name="firstName"
+        name="notes"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    />
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Visit Code:
+      </span>
+       
+      <input
+        className="right"
+        name="visitCode"
         onChange={[Function]}
         type="text"
         value=""
@@ -78,13 +86,12 @@ exports[`renders properly and matches snapshot 1`] = `
       <span
         className="left"
       >
-        Last Name:
+        Provider:
       </span>
        
       <input
         className="right"
-        data-testid="l-name"
-        name="lastName"
+        name="provider"
         onChange={[Function]}
         type="text"
         value=""
@@ -101,13 +108,12 @@ exports[`renders properly and matches snapshot 1`] = `
       <span
         className="left"
       >
-        SSN:
+        Billing Code:
       </span>
        
       <input
         className="right"
-        data-testid="ssn"
-        name="ssn"
+        name="billingCode"
         onChange={[Function]}
         type="text"
         value=""
@@ -124,36 +130,12 @@ exports[`renders properly and matches snapshot 1`] = `
       <span
         className="left"
       >
-        Email:
+        ICD10:
       </span>
        
       <input
         className="right"
-        data-testid="email"
-        name="email"
-        onChange={[Function]}
-        type="email"
-        value=""
-      />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        Street:
-      </span>
-       
-      <input
-        className="right"
-        data-testid="street"
-        name="street"
+        name="icd10"
         onChange={[Function]}
         type="text"
         value=""
@@ -170,82 +152,12 @@ exports[`renders properly and matches snapshot 1`] = `
       <span
         className="left"
       >
-        City:
+        Total Cost:
       </span>
        
       <input
         className="right"
-        data-testid="city"
-        name="city"
-        onChange={[Function]}
-        type="text"
-        value=""
-      />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        State:
-      </span>
-       
-      <input
-        className="right"
-        data-testid="state"
-        name="state"
-        onChange={[Function]}
-        type="text"
-        value=""
-      />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        Zip Code:
-      </span>
-       
-      <input
-        className="right"
-        data-testid="zipcode"
-        name="zipcode"
-        onChange={[Function]}
-        type="text"
-        value=""
-      />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        Age:
-      </span>
-       
-      <input
-        className="right"
-        data-testid="age"
-        name="age"
+        name="totalCost"
         onChange={[Function]}
         type="number"
         value=""
@@ -262,13 +174,12 @@ exports[`renders properly and matches snapshot 1`] = `
       <span
         className="left"
       >
-        Height:
+        Copay:
       </span>
        
       <input
         className="right"
-        data-testid="height"
-        name="height"
+        name="copay"
         onChange={[Function]}
         type="number"
         value=""
@@ -285,36 +196,12 @@ exports[`renders properly and matches snapshot 1`] = `
       <span
         className="left"
       >
-        Weight:
+        Chief Complaint:
       </span>
        
       <input
         className="right"
-        data-testid="weight"
-        name="weight"
-        onChange={[Function]}
-        type="number"
-        value=""
-      />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        Insurance:
-      </span>
-       
-      <input
-        className="right"
-        data-testid="insurance"
-        name="insurance"
+        name="chiefComplaint"
         onChange={[Function]}
         type="text"
         value=""
@@ -331,37 +218,82 @@ exports[`renders properly and matches snapshot 1`] = `
       <span
         className="left"
       >
-        Gender:
+        Pulse:
       </span>
        
-      <select
-        className="select"
-        data-testid="gender-select"
-        name="gender"
+      <input
+        className="right"
+        name="pulse"
         onChange={[Function]}
+        type="text"
         value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
       >
-        <option
-          value="DEFAULT"
-        >
-          --select gender--
-        </option>
-        <option
-          value="male"
-        >
-          Male
-        </option>
-        <option
-          value="female"
-        >
-          Female
-        </option>
-        <option
-          value="other"
-        >
-          Other
-        </option>
-      </select>
+        Systolic:
+      </span>
+       
+      <input
+        className="right"
+        name="systolic"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Diastolic:
+      </span>
+       
+      <input
+        className="right"
+        name="diastolic"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      
+    </div>
+    <div
+      className="input"
+    >
+      <span
+        className="left"
+      >
+        Date:
+      </span>
+       
+      <input
+        className="right"
+        name="date"
+        onChange={[Function]}
+        type="date"
+        value=""
+      />
     </div>
     <div
       className="inputError"
@@ -378,24 +310,5 @@ exports[`renders properly and matches snapshot 1`] = `
       </button>
     </div>
   </form>
-  <div
-    className="encounterPadding"
-  >
-    <h3
-      className="center"
-    >
-      Encounters
-    </h3>
-    <div
-      className="center"
-    >
-      <button
-        onClick={[Function]}
-        type="button"
-      >
-        Create Encounter
-      </button>
-    </div>
-  </div>
 </div>
 `;
