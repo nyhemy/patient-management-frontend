@@ -69,8 +69,9 @@ it('checks if id is 404', async () => {
   fetch
     .mockResponse('{ "id": 1 }', { status: 404, headers: { 'content-type': 'application/json' } });
 
-  const { getByText, queryByText } = render(toRender('999'));
+  const { getByText, queryByText, debug } = render(toRender('999'));
 
+  debug();
   await waitFor(() => getByText('404 Not Found'));
   expect(screen.queryByText('404 Not Found')).toBeTruthy();
 });

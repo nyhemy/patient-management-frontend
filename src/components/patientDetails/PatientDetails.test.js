@@ -89,7 +89,7 @@ it('renders properly and matches snapshot', () => {
 });
 
 it('displays headers and buttons', () => {
-  const { getByText, queryByText, debug } = render(toRender(1));
+  const { getByText, queryByText } = render(toRender(1));
   expect(screen.queryByText('Patient Details')).toBeTruthy();
   expect(screen.queryByText('Back to Patients')).toBeTruthy();
   expect(screen.queryByText('Encounters')).toBeTruthy();
@@ -162,9 +162,8 @@ it('displays patient data', async () => {
   // encounter call
     .mockResponseOnce(encounterDataMock);
 
-  const { getByText, queryByText, getByTestId, queryByTestId, debug } = render(toRender('1'));
+  const { getByText, queryByText, getByTestId, queryByTestId } = render(toRender('1'));
   await waitFor(() => getByTestId('f-name'));
-  // debug();
   expect(queryByText('Id:')).toBeTruthy();
   expect(queryByText('1')).toBeTruthy();
   expect(getByTestId('f-name').value).toBe('Test');
@@ -223,8 +222,8 @@ it('updates patient data', async () => {
   // patients call
     .mockResponseOnce(patientDataMock)
   // encounter call
-    .mockResponseOnce(encounterDataMock);
-    // .mockResponseOnce(patientPutMock, { status: 200, method: 'PUT', headers: { 'content-type': 'application/json' } });
+    .mockResponseOnce(encounterDataMock)
+    .mockResponseOnce({ status: 200, method: 'PUT', headers: { 'content-type': 'application/json' } });
 
   const { getByText, queryByText, getByTestId, getByAltText } = render(toRender(1));
 
@@ -232,7 +231,6 @@ it('updates patient data', async () => {
   const selectButton = getByText('Submit');
   fireEvent.click(selectButton);
   await waitFor(() => getByAltText('loading...'));
-  // debug();
   expect(mockHistoryPush).toHaveBeenCalledWith('/patients');
 });
 

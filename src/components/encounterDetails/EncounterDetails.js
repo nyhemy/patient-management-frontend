@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 // eslint-disable-next-line import/no-unresolved
 import styles from './EncounterDetails.module.css';
 import loadImg from '../ajax-loader.gif';
-import { get } from '../Requests';
+// import { get } from '../Requests';
 import {
   visitCodeRegex, billingCodeRegex, icd10Regex, dateRegex
 } from '../Constants';
@@ -22,6 +22,7 @@ const EncounterDetails = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [errorStatus, setErrorStatus] = useState('');
 
   // states for form input
   const [notes, setNotes] = useState('');
@@ -60,15 +61,30 @@ const EncounterDetails = () => {
     }
 
     setLoading(true);
-    get(`http://localhost:8080/encounters/${encounterId}`)
-      .then((response) => {
-        const res = response.data;
-        setLoading(false);
+    // get(`http://localhost:8080/encounters/${encounterId}`)
+    const encounterRequest = fetch(`http://localhost:8080/encounters/${encounterId}`, {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    });
 
-        if (res.patientId !== Number(id)) {
-          setNotFound(true);
-          setErrorMsg('404 Not Found');
+    Promise.resolve(encounterRequest)
+      .then((encounterResponse) => {
+        setLoading(false);
+        if (encounterResponse.ok) {
+          return Promise.resolve(encounterResponse.json());
         }
+        setNotFound(true);
+        setErrorStatus(encounterResponse.status);
+        throw new Error(encounterResponse.status.toString());
+      })
+      .then((encounterData) => {
+        const res = encounterData;
+
+        // if (res.patientId !== Number(id)) {
+        //   setNotFound(true);
+        //   setErrorMsg('404 Not Found');
+        // }
         setNotes(res.notes);
         setVisitCode(res.visitCode);
         setProvider(res.provider);
@@ -82,25 +98,42 @@ const EncounterDetails = () => {
         setDiastolic(res.diastolic);
         setDate(res.date);
       })
-      .catch((error) => {
-        if (error.response) {
-          if (error.response.status === 404) {
-            setLoading(false);
-            setNotFound(true);
+      .catch(() => {
+        setLoading(false);
+
+        switch (errorStatus) {
+          case 404:
             setErrorMsg('404 Not Found');
-          } else {
-            setLoading(false);
+            break;
+          case 400:
             // eslint-disable-next-line no-unused-expressions
-            (Number.isNaN(Number(id)) || Number.isNaN(Number(encounterId)))
-              ? setErrorMsg('404 Not Found')
-              : setErrorMsg('Oops something went wrong');
-          }
-        } else if (error.request) {
-          setLoading(false);
-          setErrorMsg('Oops something went wrong');
+            (Number.isNaN(Number(id)) || Number.isNaN(Number(encounterId))) ? setErrorMsg('Id not a number') : setErrorMsg('Oops something went wrong');
+            break;
+          case '':
+            setErrorMsg('Oops something went wrong');
+            break;
+          default:
+            setErrorMsg(`Error ${errorStatus}`);
+            break;
         }
+        // if (error.response) {
+        //   if (error.response.status === 404) {
+        //     setLoading(false);
+        //     setNotFound(true);
+        //     setErrorMsg('404 Not Found');
+        //   } else {
+        //     setLoading(false);
+        //     // eslint-disable-next-line no-unused-expressions
+        //     (Number.isNaN(Number(id)) || Number.isNaN(Number(encounterId)))
+        //       ? setErrorMsg('404 Not Found')
+        //       : setErrorMsg('Oops something went wrong');
+        //   }
+        // } else if (error.request) {
+        //   setLoading(false);
+        //   setErrorMsg('Oops something went wrong');
+        // }
       });
-  }, [encounterId, id, notes]);
+  }, [encounterId, errorStatus, id]);
 
   /**
    * Clears all error states

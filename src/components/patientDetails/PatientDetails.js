@@ -166,7 +166,8 @@ const PatientDetails = () => {
         setLoading(false);
 
         // eslint-disable-next-line no-unused-expressions
-        Number.isNaN(Number(id)) ? setErrorMsg('Id not a number') : errorStatus ? setErrorMsg(`Error ${errorStatus}`) : setErrorMsg('Oops something went wrong');
+        // eslint-disable-next-line max-len
+        // Number.isNaN(Number(id)) ? setErrorMsg('Id not a number') : errorStatus ? setErrorMsg(`Error ${errorStatus}`) : setErrorMsg('Oops something went wrong');
         switch (errorStatus) {
           case 404:
             setErrorMsg('404 Not Found');
