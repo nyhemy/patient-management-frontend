@@ -5,7 +5,7 @@ import styles from './CreateEncounter.module.css';
 import {
   visitCodeRegex, billingCodeRegex, icd10Regex, dateRegex
 } from '../Constants';
-import { get } from '../Requests';
+// import { get } from '../Requests';
 
 // const axios = require('axios').default;
 
@@ -58,26 +58,54 @@ const CreateEncounter = () => {
     }
 
     setLoading(true);
-    get(`http://localhost:8080/patients/${id}`)
-      // eslint-disable-next-line no-unused-vars
-      .then((response) => {
+    // get(`http://localhost:8080/patients/${id}`)
+    //   // eslint-disable-next-line no-unused-vars
+    const patientsRequest = fetch(`http://localhost:8080/patients/${id}`, {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    });
+    Promise.resolve(patientsRequest)
+      .then((patientsResponse) => {
         setLoading(false);
+        if (patientsResponse.ok) {
+          return Promise.resolve(patientsResponse.json());
+        }
+        throw new Error(patientsResponse.status.toString());
       })
       .catch((error) => {
-        if (error.response) {
-          if (error.response.status === 404) {
-            setLoading(false);
+        setLoading(false);
+        // if (error.message) {
+        switch (error.message) {
+          case '404':
             setNotFound(true);
             setErrorMsg('404 Patient Not Found');
-          } else {
-            setLoading(false);
+            break;
+          case '400':
             // eslint-disable-next-line no-unused-expressions
-            Number.isNaN(Number(id)) ? setErrorMsg('404 Patient Not Found') : setErrorMsg('Oops something went wrong');
-          }
-        } else if (error.request) {
-          setLoading(false);
-          setErrorMsg('Oops something went wrong');
+            Number.isNaN(Number(id)) ? setErrorMsg('Patient id must be a number') : setErrorMsg('Oops something went wrong');
+            break;
+          case '':
+            setErrorMsg('Oops something went wrong');
+            break;
+          default:
+            setErrorMsg(`Error: ${error.message}`);
+            break;
         }
+        //   if (error.message === '404') {
+        //     setLoading(false);
+        //     setNotFound(true);
+        //     setErrorMsg('404 Patient Not Found');
+        //   } else {
+        //     setLoading(false);
+        //     // eslint-disable-next-line no-unused-expressions
+        // eslint-disable-next-line max-len
+        //     Number.isNaN(Number(id)) ? setErrorMsg('404 Patient Not Found') : setErrorMsg('Oops something went wrong');
+        //   }
+        // } else if (error.request) {
+        //   setLoading(false);
+        //   setErrorMsg('Oops something went wrong');
+        // }
       });
   }, [id]);
 
@@ -268,8 +296,11 @@ const CreateEncounter = () => {
     Promise.resolve(encounterPost)
       // eslint-disable-next-line no-unused-vars
       .then((response) => {
-        setLoading(false);
-        history.push(`/patients/${id}`);
+        if (response.ok) {
+          setLoading(false);
+          history.push(`/patients/${id}`);
+        }
+        throw new Error(response.status.toString());
       })
       // eslint-disable-next-line no-unused-vars
       .catch((error) => {
