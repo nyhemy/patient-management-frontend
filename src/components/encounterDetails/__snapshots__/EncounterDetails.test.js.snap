@@ -49,6 +49,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="notes"
         name="notes"
         onChange={[Function]}
         type="text"
@@ -69,6 +70,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="visit"
         name="visitCode"
         onChange={[Function]}
         type="text"
@@ -91,6 +93,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="provider"
         name="provider"
         onChange={[Function]}
         type="text"
@@ -113,6 +116,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="billing"
         name="billingCode"
         onChange={[Function]}
         type="text"
@@ -135,6 +139,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="icd10"
         name="icd10"
         onChange={[Function]}
         type="text"
@@ -157,6 +162,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="total"
         name="totalCost"
         onChange={[Function]}
         type="number"
@@ -179,6 +185,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="copay"
         name="copay"
         onChange={[Function]}
         type="number"
@@ -201,6 +208,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="complaint"
         name="chiefComplaint"
         onChange={[Function]}
         type="text"
@@ -223,6 +231,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="pulse"
         name="pulse"
         onChange={[Function]}
         type="text"
@@ -245,6 +254,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="systolic"
         name="systolic"
         onChange={[Function]}
         type="text"
@@ -267,6 +277,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="diastolic"
         name="diastolic"
         onChange={[Function]}
         type="text"
@@ -289,6 +300,7 @@ exports[`renders properly and matches snapshot 1`] = `
        
       <input
         className="right"
+        data-testid="date"
         name="date"
         onChange={[Function]}
         type="date"

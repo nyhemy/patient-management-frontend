@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders and matches snapshot 1`] = `
+<div
+  className="container"
+>
+  <h2>
+    Create Encounter
+  </h2>
+  <h3
+    className="error"
+  >
+    
+  </h3>
+  <form
+    className="form"
+    noValidate={true}
+    onSubmit={[Function]}
+  >
+    <div
+      className="input"
+    >
+      <input
+        data-testid="notes"
+        name="notes"
+        onChange={[Function]}
+        placeholder="notes"
+        type="text"
+      />
+       
+      <input
+        data-testid="visit"
+        name="visitCode"
+        onChange={[Function]}
+        placeholder="visit code"
+        type="text"
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      <div
+        className="inputErrorLeft"
+      />
+       
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+    </div>
+    <div
+      className="input"
+    >
+      <input
+        data-testid="provider"
+        name="provider"
+        onChange={[Function]}
+        placeholder="provider"
+        type="text"
+      />
+       
+      <input
+        data-testid="billing"
+        name="billingCode"
+        onChange={[Function]}
+        placeholder="billing code"
+        type="text"
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+       
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+    </div>
+    <div
+      className="input"
+    >
+      <input
+        data-testid="icd10"
+        name="icd10"
+        onChange={[Function]}
+        placeholder="icd10"
+        type="text"
+      />
+       
+      <input
+        data-testid="total"
+        name="totalCost"
+        onChange={[Function]}
+        placeholder="total cost"
+        type="number"
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+       
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+    </div>
+    <div
+      className="input"
+    >
+      <input
+        data-testid="copay"
+        name="copay"
+        onChange={[Function]}
+        placeholder="copay"
+        type="number"
+      />
+       
+      <input
+        data-testid="complaint"
+        name="chiefComplaint"
+        onChange={[Function]}
+        placeholder="chief complaint"
+        type="text"
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+       
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+    </div>
+    <div
+      className="input"
+    >
+      <input
+        data-testid="pulse"
+        name="pulse"
+        onChange={[Function]}
+        placeholder="pulse"
+        type="number"
+      />
+       
+      <input
+        data-testid="systolic"
+        name="systolic"
+        onChange={[Function]}
+        placeholder="systolic"
+        type="number"
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+       
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+    </div>
+    <div
+      className="input"
+    >
+      <input
+        data-testid="diastolic"
+        name="diastolic"
+        onChange={[Function]}
+        placeholder="diastolic"
+        type="number"
+      />
+       
+      <input
+        data-testid="date"
+        name="date"
+        onChange={[Function]}
+        placeholder="date"
+        type="date"
+      />
+    </div>
+    <div
+      className="inputError"
+    >
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+       
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
+    </div>
+    <button
+      type="submit"
+    >
+      Create
+    </button>
+  </form>
+</div>
+`;

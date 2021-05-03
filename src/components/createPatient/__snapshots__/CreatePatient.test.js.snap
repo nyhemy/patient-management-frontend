@@ -1,24 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders properly and matches snapshot 1`] = `
+exports[`renders and matches snapshot 1`] = `
 <div
   className="container"
 >
-  <h2
-    className="center"
-  >
-    Patient Details
+  <h2>
+    Create Patient
   </h2>
-  <div
-    className="center"
-  >
-    <button
-      onClick={[Function]}
-      type="button"
-    >
-      Back to Patients
-    </button>
-  </div>
   <h3
     className="error"
   >
@@ -26,66 +14,26 @@ exports[`renders properly and matches snapshot 1`] = `
   </h3>
   <form
     className="form"
-    data-testid="form"
     noValidate={true}
     onSubmit={[Function]}
   >
-    <h3
-      className="center"
-    >
-      Edit Patient
-    </h3>
     <div
       className="input"
     >
-      <span
-        className="left"
-      >
-        Id:
-      </span>
-       
-      1
-    </div>
-    <div
-      className="inputError"
-    />
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        First Name:
-      </span>
-       
       <input
-        className="right"
         data-testid="f-name"
         name="firstName"
         onChange={[Function]}
+        placeholder="first name"
         type="text"
         value=""
       />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        Last Name:
-      </span>
        
       <input
-        className="right"
         data-testid="l-name"
         name="lastName"
         onChange={[Function]}
+        placeholder="last name"
         type="text"
         value=""
       />
@@ -93,45 +41,35 @@ exports[`renders properly and matches snapshot 1`] = `
     <div
       className="inputError"
     >
-      
+      <div
+        className="inputErrorLeft"
+      >
+        
+      </div>
+       
+      <div
+        className="inputErrorRight"
+      >
+        
+      </div>
     </div>
     <div
       className="input"
     >
-      <span
-        className="left"
-      >
-        SSN:
-      </span>
-       
       <input
-        className="right"
         data-testid="ssn"
         name="ssn"
         onChange={[Function]}
+        placeholder="social security number"
         type="text"
         value=""
       />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        Email:
-      </span>
        
       <input
-        className="right"
         data-testid="email"
         name="email"
         onChange={[Function]}
+        placeholder="email"
         type="email"
         value=""
       />
@@ -139,45 +77,35 @@ exports[`renders properly and matches snapshot 1`] = `
     <div
       className="inputError"
     >
-      
+      <span
+        className="inputErrorLeft"
+      >
+        
+      </span>
+       
+      <span
+        className="inputErrorRight"
+      >
+        
+      </span>
     </div>
     <div
       className="input"
     >
-      <span
-        className="left"
-      >
-        Street:
-      </span>
-       
       <input
-        className="right"
         data-testid="street"
         name="street"
         onChange={[Function]}
+        placeholder="street"
         type="text"
         value=""
       />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        City:
-      </span>
        
       <input
-        className="right"
         data-testid="city"
         name="city"
         onChange={[Function]}
+        placeholder="city"
         type="text"
         value=""
       />
@@ -185,45 +113,35 @@ exports[`renders properly and matches snapshot 1`] = `
     <div
       className="inputError"
     >
-      
+      <span
+        className="inputErrorLeft"
+      >
+        
+      </span>
+       
+      <span
+        className="inputErrorRight"
+      >
+        
+      </span>
     </div>
     <div
       className="input"
     >
-      <span
-        className="left"
-      >
-        State:
-      </span>
-       
       <input
-        className="right"
         data-testid="state"
         name="state"
         onChange={[Function]}
+        placeholder="state"
         type="text"
         value=""
       />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        Zip Code:
-      </span>
        
       <input
-        className="right"
         data-testid="zipcode"
         name="zipcode"
         onChange={[Function]}
+        placeholder="zipcode"
         type="text"
         value=""
       />
@@ -231,91 +149,71 @@ exports[`renders properly and matches snapshot 1`] = `
     <div
       className="inputError"
     >
-      
+      <span
+        className="inputErrorLeft"
+      >
+        
+      </span>
+       
+      <span
+        className="inputErrorRight"
+      >
+        
+      </span>
     </div>
     <div
       className="input"
     >
-      <span
-        className="left"
-      >
-        Age:
-      </span>
-       
       <input
-        className="right"
         data-testid="age"
         name="age"
         onChange={[Function]}
+        placeholder="age"
         type="number"
-        value=""
+        value={0}
       />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        Height:
-      </span>
        
       <input
-        className="right"
         data-testid="height"
         name="height"
         onChange={[Function]}
+        placeholder="height"
         type="number"
-        value=""
+        value={0}
       />
     </div>
     <div
       className="inputError"
     >
-      
+      <span
+        className="inputErrorLeft"
+      >
+        
+      </span>
+       
+      <span
+        className="inputErrorRight"
+      >
+        
+      </span>
     </div>
     <div
       className="input"
     >
-      <span
-        className="left"
-      >
-        Weight:
-      </span>
-       
       <input
-        className="right"
         data-testid="weight"
         name="weight"
         onChange={[Function]}
+        placeholder="weight"
         type="number"
         value=""
       />
-    </div>
-    <div
-      className="inputError"
-    >
-      
-    </div>
-    <div
-      className="input"
-    >
-      <span
-        className="left"
-      >
-        Insurance:
-      </span>
        
       <input
-        className="right"
         data-testid="insurance"
         name="insurance"
         onChange={[Function]}
+        placeholder="insurance"
         type="text"
         value=""
       />
@@ -323,26 +221,29 @@ exports[`renders properly and matches snapshot 1`] = `
     <div
       className="inputError"
     >
-      
-    </div>
-    <div
-      className="input"
-    >
       <span
-        className="left"
+        className="inputErrorLeft"
       >
-        Gender:
+        
       </span>
        
+      <span
+        className="inputErrorRight"
+      >
+        
+      </span>
+    </div>
+    <div>
       <select
         className="select"
         data-testid="gender-select"
+        defaultValue="DEFAULT"
         name="gender"
         onChange={[Function]}
         value=""
       >
         <option
-          data-testid="DEFAULT-select"
+          data-testid="default-select"
           value="DEFAULT"
         >
           --select gender--
@@ -372,34 +273,11 @@ exports[`renders properly and matches snapshot 1`] = `
     >
       
     </div>
-    <div
-      className="button"
+    <button
+      type="submit"
     >
-      <button
-        type="submit"
-      >
-        Submit
-      </button>
-    </div>
+      Create
+    </button>
   </form>
-  <div
-    className="encounterPadding"
-  >
-    <h3
-      className="center"
-    >
-      Encounters
-    </h3>
-    <div
-      className="center"
-    >
-      <button
-        onClick={[Function]}
-        type="button"
-      >
-        Create Encounter
-      </button>
-    </div>
-  </div>
 </div>
 `;

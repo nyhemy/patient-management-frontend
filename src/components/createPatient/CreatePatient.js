@@ -5,7 +5,7 @@ import styles from './CreatePatient.module.css';
 import { emailRegex, zipcodeRegex, ssnRegex } from '../Constants';
 import { stateValidator, genderValidator } from '../Functions';
 
-const axios = require('axios').default;
+// const axios = require('axios').default;
 
 const CreatePatient = () => {
   // states used for general component functionality
@@ -194,38 +194,75 @@ const CreatePatient = () => {
 
     setLoading(true);
 
-    axios.post('http://localhost:8080/patients',
-      {
-        firstName,
-        lastName,
-        ssn,
-        email,
-        street,
-        city,
-        state,
-        postal: zipcode,
-        age,
-        height,
-        weight,
-        insurance,
-        gender
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          mode: 'cors',
-          Authorization: `Bearer ${sessionStorage.getItem('token')}`
-        }
-      })
+    // axios.post('http://localhost:8080/patients',
+    //   {
+    //     firstName,
+    //     lastName,
+    //     ssn,
+    //     email,
+    //     street,
+    //     city,
+    //     state,
+    //     postal: zipcode,
+    //     age,
+    //     height,
+    //     weight,
+    //     insurance,
+    //     gender
+    //   },
+    //   {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       mode: 'cors',
+    //       Authorization: `Bearer ${sessionStorage.getItem('token')}`
+    //     }
+    //   })
+
+    const postData = {
+      firstName,
+      lastName,
+      ssn,
+      email,
+      street,
+      city,
+      state,
+      postal: zipcode,
+      age,
+      height,
+      weight,
+      insurance,
+      gender
+    };
+
+    const patientPost = fetch('http://localhost:8080/patients', {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify(postData)
+    });
+
+    Promise.resolve(patientPost)
       // eslint-disable-next-line no-unused-vars
       .then((response) => {
-        setLoading(false);
-        history.push('/patients');
+        if (response.ok) {
+          setLoading(false);
+          history.push('/patients');
+        }
+        throw new Error(response.status.toString());
       })
       // eslint-disable-next-line no-unused-vars
       .catch((error) => {
         setLoading(false);
-        setErrorMsg('Oops something went wrong');
+
+        switch (error.message) {
+          case '409':
+            setErrorMsg('Conflicts with existing data, likely email');
+            break;
+          default:
+            setErrorMsg('Oops something went wrong');
+            break;
+        }
       });
   };
 
@@ -239,9 +276,9 @@ const CreatePatient = () => {
       </h3>
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <div className={styles.input}>
-          <input type="text" name="firstName" placeholder="first name" onChange={handleChange} />
+          <input data-testid="f-name" type="text" name="firstName" placeholder="first name" value={firstName} onChange={handleChange} />
           {' '}
-          <input type="text" name="lastName" placeholder="last name" onChange={handleChange} />
+          <input data-testid="l-name" type="text" name="lastName" placeholder="last name" value={lastName} onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorLeft}>{firstNameError}</div>
@@ -250,9 +287,9 @@ const CreatePatient = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="text" name="ssn" placeholder="social security number" onChange={handleChange} />
+          <input data-testid="ssn" type="text" name="ssn" placeholder="social security number" value={ssn} onChange={handleChange} />
           {' '}
-          <input type="email" name="email" placeholder="email" onChange={handleChange} />
+          <input data-testid="email" type="email" name="email" placeholder="email" value={email} onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <span className={styles.inputErrorLeft}>{ssnError}</span>
@@ -261,9 +298,9 @@ const CreatePatient = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="text" name="street" placeholder="street" onChange={handleChange} />
+          <input data-testid="street" type="text" name="street" placeholder="street" value={street} onChange={handleChange} />
           {' '}
-          <input type="text" name="city" placeholder="city" onChange={handleChange} />
+          <input data-testid="city" type="text" name="city" placeholder="city" value={city} onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <span className={styles.inputErrorLeft}>{streetError}</span>
@@ -272,9 +309,9 @@ const CreatePatient = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="text" name="state" placeholder="state" onChange={handleChange} />
+          <input data-testid="state" type="text" name="state" placeholder="state" value={state} onChange={handleChange} />
           {' '}
-          <input type="text" name="zipcode" placeholder="zipcode" onChange={handleChange} />
+          <input data-testid="zipcode" type="text" name="zipcode" placeholder="zipcode" value={zipcode} onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <span className={styles.inputErrorLeft}>{stateError}</span>
@@ -283,9 +320,9 @@ const CreatePatient = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="number" name="age" placeholder="age" onChange={handleChange} />
+          <input data-testid="age" type="number" name="age" placeholder="age" value={age} onChange={handleChange} />
           {' '}
-          <input type="number" name="height" placeholder="height" onChange={handleChange} />
+          <input data-testid="height" type="number" name="height" placeholder="height" value={height} onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <span className={styles.inputErrorLeft}>{ageError}</span>
@@ -294,9 +331,9 @@ const CreatePatient = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="number" name="weight" placeholder="weight" onChange={handleChange} />
+          <input data-testid="weight" type="number" name="weight" placeholder="weight" value={weight} onChange={handleChange} />
           {' '}
-          <input type="text" name="insurance" placeholder="insurance" onChange={handleChange} />
+          <input data-testid="insurance" type="text" name="insurance" placeholder="insurance" value={insurance} onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <span className={styles.inputErrorLeft}>{weightError}</span>
@@ -306,11 +343,11 @@ const CreatePatient = () => {
 
         <div>
           {/* eslint-disable-next-line jsx-a11y/no-onchange */}
-          <select defaultValue="DEFAULT" className={styles.select} name="gender" onChange={handleChange}>
-            <option value="DEFAULT">--select gender--</option>
-            <option value="male">Male</option>
-            <option value="memale">Female</option>
-            <option value="other">Other</option>
+          <select data-testid="gender-select" defaultValue="DEFAULT" value={gender} className={styles.select} name="gender" onChange={handleChange}>
+            <option data-testid="default-select" value="DEFAULT">--select gender--</option>
+            <option data-testid="male-select" value="male">Male</option>
+            <option data-testid="female-select" value="female">Female</option>
+            <option data-testid="other-select" value="other">Other</option>
           </select>
         </div>
         <div className={styles.inputError}>{genderError}</div>

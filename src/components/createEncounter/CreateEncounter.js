@@ -7,7 +7,7 @@ import {
 } from '../Constants';
 import { get } from '../Requests';
 
-const axios = require('axios').default;
+// const axios = require('axios').default;
 
 /**
  * Component containing form for curation of new Encounter
@@ -218,28 +218,54 @@ const CreateEncounter = () => {
 
     setLoading(true);
 
-    axios.post(`http://localhost:8080/patients/${id}/encounters`,
-      {
-        patientId: id,
-        notes,
-        visitCode,
-        provider,
-        billingCode,
-        icd10,
-        totalCost,
-        copay,
-        chiefComplaint,
-        pulse,
-        systolic,
-        diastolic,
-        date
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          mode: 'cors'
-        }
-      })
+    // axios.post(`http://localhost:8080/patients/${id}/encounters`,
+    //   {
+    //     patientId: id,
+    //     notes,
+    //     visitCode,
+    //     provider,
+    //     billingCode,
+    //     icd10,
+    //     totalCost,
+    //     copay,
+    //     chiefComplaint,
+    //     pulse,
+    //     systolic,
+    //     diastolic,
+    //     date
+    //   },
+    //   {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       mode: 'cors'
+    //     }
+    //   })
+
+    const postData = {
+      patientId: id,
+      notes,
+      visitCode,
+      provider,
+      billingCode,
+      icd10,
+      totalCost,
+      copay,
+      chiefComplaint,
+      pulse,
+      systolic,
+      diastolic,
+      date
+    };
+
+    const encounterPost = fetch(`http://localhost:8080/patients/${id}/encounters`, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify(postData)
+    });
+
+    Promise.resolve(encounterPost)
       // eslint-disable-next-line no-unused-vars
       .then((response) => {
         setLoading(false);
@@ -263,9 +289,9 @@ const CreateEncounter = () => {
       {!notFound && (
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <div className={styles.input}>
-          <input type="text" name="notes" placeholder="notes" onChange={handleChange} />
+          <input data-testid="notes" type="text" name="notes" placeholder="notes" onChange={handleChange} />
           {' '}
-          <input type="text" name="visitCode" placeholder="visit code" onChange={handleChange} />
+          <input data-testid="visit" type="text" name="visitCode" placeholder="visit code" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorLeft} />
@@ -274,9 +300,9 @@ const CreateEncounter = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="text" name="provider" placeholder="provider" onChange={handleChange} />
+          <input data-testid="provider" type="text" name="provider" placeholder="provider" onChange={handleChange} />
           {' '}
-          <input type="text" name="billingCode" placeholder="billing code" onChange={handleChange} />
+          <input data-testid="billing" type="text" name="billingCode" placeholder="billing code" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorRight}>{providerError}</div>
@@ -285,9 +311,9 @@ const CreateEncounter = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="text" name="icd10" placeholder="icd10" onChange={handleChange} />
+          <input data-testid="icd10" type="text" name="icd10" placeholder="icd10" onChange={handleChange} />
           {' '}
-          <input type="number" name="totalCost" placeholder="total cost" onChange={handleChange} />
+          <input data-testid="total" type="number" name="totalCost" placeholder="total cost" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorRight}>{icd10Error}</div>
@@ -296,9 +322,9 @@ const CreateEncounter = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="number" name="copay" placeholder="copay" onChange={handleChange} />
+          <input data-testid="copay" type="number" name="copay" placeholder="copay" onChange={handleChange} />
           {' '}
-          <input type="text" name="chiefComplaint" placeholder="chief complaint" onChange={handleChange} />
+          <input data-testid="complaint" type="text" name="chiefComplaint" placeholder="chief complaint" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorRight}>{copayError}</div>
@@ -307,9 +333,9 @@ const CreateEncounter = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="number" name="pulse" placeholder="pulse" onChange={handleChange} />
+          <input data-testid="pulse" type="number" name="pulse" placeholder="pulse" onChange={handleChange} />
           {' '}
-          <input type="number" name="systolic" placeholder="systolic" onChange={handleChange} />
+          <input data-testid="systolic" type="number" name="systolic" placeholder="systolic" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorRight}>{pulseError}</div>
@@ -318,9 +344,9 @@ const CreateEncounter = () => {
         </div>
 
         <div className={styles.input}>
-          <input type="number" name="diastolic" placeholder="diastolic" onChange={handleChange} />
+          <input data-testid="diastolic" type="number" name="diastolic" placeholder="diastolic" onChange={handleChange} />
           {' '}
-          <input type="date" name="date" placeholder="date" onChange={handleChange} />
+          <input data-testid="date" type="date" name="date" placeholder="date" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>
           <div className={styles.inputErrorRight}>{diastolicError}</div>

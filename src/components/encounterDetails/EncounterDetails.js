@@ -8,7 +8,7 @@ import {
   visitCodeRegex, billingCodeRegex, icd10Regex, dateRegex
 } from '../Constants';
 
-const axios = require('axios').default;
+// const axios = require('axios').default;
 
 /**
  * Shows and allows modification of specific Encounter from database
@@ -272,38 +272,67 @@ const EncounterDetails = () => {
 
     setLoading(true);
 
-    axios.put(`http://localhost:8080/patients/${id}/encounters/${encounterId}`,
-      {
-        id: encounterId,
-        patientId: id,
-        notes,
-        visitCode,
-        provider,
-        billingCode,
-        icd10,
-        totalCost,
-        copay,
-        chiefComplaint,
-        pulse,
-        systolic,
-        diastolic,
-        date
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          mode: 'cors'
-        }
-      })
+    // axios.put(`http://localhost:8080/patients/${id}/encounters/${encounterId}`,
+    //   {
+    //     id: encounterId,
+    //     patientId: id,
+    //     notes,
+    //     visitCode,
+    //     provider,
+    //     billingCode,
+    //     icd10,
+    //     totalCost,
+    //     copay,
+    //     chiefComplaint,
+    //     pulse,
+    //     systolic,
+    //     diastolic,
+    //     date
+    //   },
+    //   {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       mode: 'cors'
+    //     }
+    //   })
+    const putData = {
+      id: encounterId,
+      patientId: id,
+      notes,
+      visitCode,
+      provider,
+      billingCode,
+      icd10,
+      totalCost,
+      copay,
+      chiefComplaint,
+      pulse,
+      systolic,
+      diastolic,
+      date
+    };
+
+    const encounterPut = fetch(`http://localhost:8080/patients/${id}/encounters/${encounterId}`, {
+      method: 'PUT',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify(putData)
+    });
+
+    Promise.resolve(encounterPut)
       // eslint-disable-next-line no-unused-vars
-      .then((response) => {
-        setLoading(false);
-        history.push(`/patients/${id}`);
+      .then((putResponse) => {
+        if (putResponse.ok) {
+          setLoading(false);
+          history.push(`/patients/${id}`);
+        }
+        throw new Error(putResponse.status.toString());
       })
       // eslint-disable-next-line no-unused-vars
       .catch((error) => {
         setLoading(false);
-        setErrorMsg('Oops something went wrong');
+        setErrorMsg('PUT: Oops something went wrong');
       });
   };
 
@@ -330,84 +359,84 @@ const EncounterDetails = () => {
         <div className={styles.input}>
           <span className={styles.left}>Notes:</span>
           {' '}
-          <input className={styles.right} value={notes} name="notes" type="text" onChange={handleChange} />
+          <input data-testid="notes" className={styles.right} value={notes} name="notes" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError} />
 
         <div className={styles.input}>
           <span className={styles.left}>Visit Code:</span>
           {' '}
-          <input className={styles.right} value={visitCode} name="visitCode" type="text" onChange={handleChange} />
+          <input data-testid="visit" className={styles.right} value={visitCode} name="visitCode" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{visitCodeError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Provider:</span>
           {' '}
-          <input className={styles.right} value={provider} name="provider" type="text" onChange={handleChange} />
+          <input data-testid="provider" className={styles.right} value={provider} name="provider" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{providerError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Billing Code:</span>
           {' '}
-          <input className={styles.right} value={billingCode} name="billingCode" type="text" onChange={handleChange} />
+          <input data-testid="billing" className={styles.right} value={billingCode} name="billingCode" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{billingCodeError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>ICD10:</span>
           {' '}
-          <input className={styles.right} value={icd10} name="icd10" type="text" onChange={handleChange} />
+          <input data-testid="icd10" className={styles.right} value={icd10} name="icd10" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{icd10Error}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Total Cost:</span>
           {' '}
-          <input className={styles.right} value={totalCost} name="totalCost" type="number" onChange={handleChange} />
+          <input data-testid="total" className={styles.right} value={totalCost} name="totalCost" type="number" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{totalCostError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Copay:</span>
           {' '}
-          <input className={styles.right} value={copay} name="copay" type="number" onChange={handleChange} />
+          <input data-testid="copay" className={styles.right} value={copay} name="copay" type="number" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{copayError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Chief Complaint:</span>
           {' '}
-          <input className={styles.right} value={chiefComplaint} name="chiefComplaint" type="text" onChange={handleChange} />
+          <input data-testid="complaint" className={styles.right} value={chiefComplaint} name="chiefComplaint" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{chiefComplaintError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Pulse:</span>
           {' '}
-          <input className={styles.right} value={pulse} name="pulse" type="text" onChange={handleChange} />
+          <input data-testid="pulse" className={styles.right} value={pulse} name="pulse" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{pulseError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Systolic:</span>
           {' '}
-          <input className={styles.right} value={systolic} name="systolic" type="text" onChange={handleChange} />
+          <input data-testid="systolic" className={styles.right} value={systolic} name="systolic" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{systolicError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Diastolic:</span>
           {' '}
-          <input className={styles.right} value={diastolic} name="diastolic" type="text" onChange={handleChange} />
+          <input data-testid="diastolic" className={styles.right} value={diastolic} name="diastolic" type="text" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{diastolicError}</div>
 
         <div className={styles.input}>
           <span className={styles.left}>Date:</span>
           {' '}
-          <input className={styles.right} value={date} name="date" type="date" onChange={handleChange} />
+          <input data-testid="date" className={styles.right} value={date} name="date" type="date" onChange={handleChange} />
         </div>
         <div className={styles.inputError}>{dateError}</div>
 

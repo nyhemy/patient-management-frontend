@@ -434,8 +434,11 @@ const PatientDetails = () => {
         //   return Promise.resolve(putResponse.json());
         // }
         // throw new Error(putResponse.status.toString());
-        setLoading(false);
-        history.push('/patients');
+        if (putResponse.ok) {
+          setLoading(false);
+          history.push('/patients');
+        }
+        throw new Error(putResponse.status.toString());
       })
       // eslint-disable-next-line no-unused-vars
       .catch((error) => {
@@ -555,10 +558,10 @@ const PatientDetails = () => {
           {' '}
           {/* eslint-disable-next-line jsx-a11y/no-onchange */}
           <select data-testid="gender-select" value={gender} className={styles.select} name="gender" onChange={handleChange}>
-            <option value="DEFAULT">--select gender--</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option data-testid="DEFAULT-select" value="DEFAULT">--select gender--</option>
+            <option data-testid="male-select" value="male">Male</option>
+            <option data-testid="female-select" value="female">Female</option>
+            <option data-testid="other-select" value="other">Other</option>
           </select>
         </div>
         <div className={styles.inputError}>{genderError}</div>

@@ -4,6 +4,7 @@ import { createMemoryHistory } from 'history';
 import { Router, Route, MemoryRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import fetchMock from 'jest-fetch-mock';
+import userEvent from '@testing-library/user-event';
 import PatientDetails from './PatientDetails';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -32,10 +33,10 @@ jest.mock('react-router-dom', () => ({
 }));
 
 const toRender = (id) => {
-  const routerEntry = `/posts/${id}`;
+  const routerEntry = `/patients/${id}`;
   return (
     <MemoryRouter initialEntries={[routerEntry]}>
-      <Route path="/posts/:id">
+      <Route path="/patients/:id">
         <PatientDetails />
       </Route>
     </MemoryRouter>
@@ -273,5 +274,56 @@ it('tests if input error messages appear', async () => {
 });
 
 it('changes input data', async () => {
+  fetch
+  // patients call
+    .mockResponseOnce(patientDataMock)
+  // encounter call
+    .mockResponseOnce(encounterDataMock);
 
+  const { getByText, queryByText, getByTestId, queryByTestId } = render(toRender('1'));
+  await waitFor(() => getByTestId('f-name'));
+  expect(queryByText('Id:')).toBeTruthy();
+  expect(queryByText('1')).toBeTruthy();
+  expect(getByTestId('f-name').value).toBe('Test');
+  expect(getByTestId('l-name').value).toBe('Last');
+  expect(getByTestId('ssn').value).toBe('000-00-0000');
+  expect(getByTestId('email').value).toBe('tl@gmail.com');
+  expect(getByTestId('street').value).toBe('Yo Dr');
+  expect(getByTestId('city').value).toBe('Heyvalley');
+  expect(getByTestId('state').value).toBe('NH');
+  expect(getByTestId('zipcode').value).toBe('00000');
+  expect(getByTestId('age').value).toBe('23');
+  expect(getByTestId('height').value).toBe('64');
+  expect(getByTestId('weight').value).toBe('112');
+  expect(getByTestId('insurance').value).toBe('Wooshoo Inc');
+  expect(getByTestId('gender-select').value).toBe('female');
+
+  userEvent.type(screen.getByTestId('f-name'), '-test');
+  userEvent.type(screen.getByTestId('l-name'), '-test');
+  userEvent.type(screen.getByTestId('ssn'), '1');
+  userEvent.type(screen.getByTestId('email'), 'm');
+  userEvent.type(screen.getByTestId('street'), ' Gabba');
+  userEvent.type(screen.getByTestId('city'), 'o');
+  userEvent.type(screen.getByTestId('state'), 'A');
+  userEvent.type(screen.getByTestId('zipcode'), '1');
+  userEvent.type(screen.getByTestId('age'), '0');
+  userEvent.type(screen.getByTestId('height'), '0');
+  userEvent.type(screen.getByTestId('weight'), '0');
+  userEvent.type(screen.getByTestId('insurance'), ' Co');
+  userEvent.selectOptions(screen.getByTestId('gender-select'), ['male']);
+
+  expect(getByTestId('f-name').value).toBe('Test-test');
+  expect(getByTestId('l-name').value).toBe('Last-test');
+  expect(getByTestId('ssn').value).toBe('000-00-00001');
+  expect(getByTestId('email').value).toBe('tl@gmail.comm');
+  expect(getByTestId('street').value).toBe('Yo Dr Gabba');
+  expect(getByTestId('city').value).toBe('Heyvalleyo');
+  expect(getByTestId('state').value).toBe('NHA');
+  expect(getByTestId('zipcode').value).toBe('000001');
+  expect(getByTestId('age').value).toBe('230');
+  expect(getByTestId('height').value).toBe('640');
+  expect(getByTestId('weight').value).toBe('1120');
+  expect(getByTestId('insurance').value).toBe('Wooshoo Inc Co');
+  expect(screen.getByTestId('male-select').selected).toBe(true);
+  expect(screen.getByTestId('female-select').selected).toBe(false);
 });
