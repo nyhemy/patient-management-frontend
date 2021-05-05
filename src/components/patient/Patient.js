@@ -3,8 +3,6 @@ import { useHistory } from 'react-router-dom';
 import styles from './Patient.module.css';
 import loadImg from '../ajax-loader.gif';
 
-// const axios = require('axios').default;
-
 /**
  * Component which takes data from backend Patient entity and displays it
  *
@@ -31,16 +29,7 @@ const Patient = (props) => {
    */
   const deletePatient = () => {
     setLoading(true);
-    // axios.delete(`http://localhost:8080/patients/${id}`, {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     mode: 'cors',
-    //     Authorization: `Bearer ${sessionStorage.getItem('token')}`
-    //   },
-    //   data: {
-    //     id
-    //   }
-    // })
+
     const requestOptions = {
       method: 'DELETE',
       headers: {
@@ -55,7 +44,6 @@ const Patient = (props) => {
     const patientRequest = fetch(`http://localhost:8080/patients/${id}`, requestOptions);
 
     Promise.resolve(patientRequest)
-      // eslint-disable-next-line no-unused-vars
       .then((patientsResponse) => {
         setLoading(false);
         if (!patientsResponse.ok) {
@@ -71,22 +59,9 @@ const Patient = (props) => {
           window.location.reload();
         }
       })
-      // eslint-disable-next-line no-unused-vars
       .catch(() => {
-      // .catch((error) => {
         setLoading(false);
-        // if (error.response) {
-        //   switch (error.response.status) {
-        //     case 409:
-        //       setErrorMsg('Cannot delete patient with existing encounters');
-        //       break;
-        //     default:
-        //       setErrorMsg('Oops something went wrong');
-        //       break;
-        //   }
-        // } else {
         setErrorMsg('Oops something went wrong');
-        // }
       });
   };
 

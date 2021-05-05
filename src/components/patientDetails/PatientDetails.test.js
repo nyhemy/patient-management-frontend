@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render, screen, act, waitFor, getByText, queryByText, fireEvent, getByAltText, getByTestId, queryByTestId } from '@testing-library/react';
+import { cleanup, render, screen, act, waitFor, getByText, queryByText, fireEvent, getByAltText, getByTestId, queryByTestId, waitForElementToBeRemoved } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Router, Route, MemoryRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
@@ -15,13 +15,6 @@ beforeEach(() => {
 });
 
 afterEach(cleanup);
-
-// jest.mock('react-router-dom', () => ({
-//   ...jest.requireActual('react-router-dom'),
-//   useParams: () => ({
-//     id: 1
-//   })
-// }));
 
 const mockHistoryPush = jest.fn();
 
@@ -98,61 +91,63 @@ it('displays headers and buttons', () => {
 });
 
 it('checks if id is 404', async () => {
-  // need to change useParam, change from mock to spyOn
   fetch
     .mockResponse('{ "id": 1 }', { status: 404, headers: { 'content-type': 'application/json' } });
 
-  const { getByText, queryByText } = render(toRender('999'));
+  const { getByText, queryByText, getByAltText } = render(toRender('999'));
 
-  await waitFor(() => getByText('404 Not Found'));
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
+  // expect(getByAltText('loading...')).toBeFalsy();
   expect(screen.queryByText('404 Not Found')).toBeTruthy();
 });
 
 it('checks if id is nan', async () => {
-  // need to change useParam, change from mock to spyOn
   fetch
     .mockResponse('{ "id": 1 }', { status: 400, headers: { 'content-type': 'application/json' } });
 
-  const { getByText, queryByText } = render(toRender('garbage'));
+  const { getByText, queryByText, getByAltText } = render(toRender('garbage'));
 
-  await waitFor(() => getByText('Id not a number'));
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
   expect(screen.queryByText('Id not a number')).toBeTruthy();
 });
 
 it('catches patient reject', async () => {
   fetch
     .mockReject(new Error('error'));
-    // .mockResponseOnce('{ "id": 1 }', { status: 500, headers: { 'content-type': 'application/json' } });
-  // eslint-disable-next-line max-len
-  // .mockResponseOnce('{ "id": 1 }', { status: 400, headers: { 'content-type': 'application/json' } });
 
-  const { getByText, queryByText } = render(toRender('1'));
+  const { getByText, queryByText, getByAltText } = render(toRender('1'));
 
-  await waitFor(() => getByText('Oops something went wrong'));
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
   expect(screen.queryByText('Oops something went wrong')).toBeTruthy();
 });
 
 it('catches patient error', async () => {
   fetch
     .mockResponse('{ "id": 1 }', { status: 500, headers: { 'content-type': 'application/json' } });
-  // eslint-disable-next-line max-len
-  // .mockResponseOnce('{ "id": 1 }', { status: 400, headers: { 'content-type': 'application/json' } });
 
-  const { getByText, queryByText } = render(toRender('1'));
+  const { getByText, queryByText, getByAltText } = render(toRender('1'));
 
-  await waitFor(() => getByText('Error 500'));
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
   expect(screen.queryByText('Error 500')).toBeTruthy();
 });
 
 it('catches encounter error', async () => {
   fetch
     .mockResponseOnce('{ "id": 1 }', { status: 200, headers: { 'content-type': 'application/json' } });
-  // eslint-disable-next-line max-len
-  // .mockResponseOnce('{ "id": 1 }', { status: 400, headers: { 'content-type': 'application/json' } });
 
-  const { getByText, queryByText } = render(toRender('1'));
+  const { getByText, queryByText, getByAltText } = render(toRender('1'));
 
-  await waitFor(() => getByText('Error with encounter'));
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
   expect(screen.queryByText('Error with encounter')).toBeTruthy();
 });
 
@@ -163,8 +158,12 @@ it('displays patient data', async () => {
   // encounter call
     .mockResponseOnce(encounterDataMock);
 
-  const { getByText, queryByText, getByTestId, queryByTestId } = render(toRender('1'));
-  await waitFor(() => getByTestId('f-name'));
+  const { getByText, queryByText, getByTestId, queryByTestId, getByAltText } = render(toRender('1'));
+
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
+
   expect(queryByText('Id:')).toBeTruthy();
   expect(queryByText('1')).toBeTruthy();
   expect(getByTestId('f-name').value).toBe('Test');
@@ -188,7 +187,9 @@ it('displays patient data', async () => {
 });
 
 it('goes back to patients', () => {
-  const { getByText, queryByText } = render(toRender(1));
+  const { getByText, queryByText, getByAltText } = render(toRender(1));
+
+  expect(getByAltText('loading...')).toBeTruthy();
 
   const selectButton = getByText('Back to Patients');
   fireEvent.click(selectButton);
@@ -196,7 +197,9 @@ it('goes back to patients', () => {
 });
 
 it('redirects to create encounter page', () => {
-  const { getByText, queryByText } = render(toRender(1));
+  const { getByText, queryByText, getByAltText } = render(toRender(1));
+
+  expect(getByAltText('loading...')).toBeTruthy();
 
   const selectButton = getByText('Create Encounter');
   fireEvent.click(selectButton);
@@ -210,9 +213,11 @@ it('redirects to encounter details', async () => {
   // encounter call
     .mockResponseOnce(encounterDataMock);
 
-  const { getByText, queryByText } = render(toRender(1));
+  const { getByText, queryByText, getByAltText } = render(toRender(1));
 
-  await waitFor(() => getByText('Details'));
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
   const selectButton = getByText('Details');
   fireEvent.click(selectButton);
   expect(mockHistoryPush).toHaveBeenCalledWith('/patients/1/encounters/3');
@@ -226,9 +231,11 @@ it('updates patient data', async () => {
     .mockResponseOnce(encounterDataMock)
     .mockResponseOnce({ status: 200, method: 'PUT', headers: { 'content-type': 'application/json' } });
 
-  const { getByText, queryByText, getByTestId, getByAltText } = render(toRender(1));
+  const { getByText, queryByText, getByTestId, getByAltText, debug } = render(toRender(1));
 
-  await waitFor(async () => getByTestId('f-name'));
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
   const selectButton = getByText('Submit');
   fireEvent.click(selectButton);
   await waitFor(() => getByAltText('loading...'));
@@ -245,7 +252,9 @@ it('fails put request', async () => {
 
   const { getByText, queryByText, getByTestId, getByAltText } = render(toRender(1));
 
-  await waitFor(async () => getByTestId('f-name'));
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
   const selectButton = getByText('Submit');
   fireEvent.click(selectButton);
   await waitFor(() => getByAltText('loading...'));
@@ -253,7 +262,9 @@ it('fails put request', async () => {
 });
 
 it('tests if input error messages appear', async () => {
-  const { getByText, queryByText } = render(toRender(1));
+  const { getByText, queryByText, getByAltText } = render(toRender(1));
+
+  expect(getByAltText('loading...')).toBeTruthy();
 
   const selectButton = getByText('Submit');
   fireEvent.click(selectButton);
@@ -280,8 +291,11 @@ it('changes input data', async () => {
   // encounter call
     .mockResponseOnce(encounterDataMock);
 
-  const { getByText, queryByText, getByTestId, queryByTestId } = render(toRender('1'));
-  await waitFor(() => getByTestId('f-name'));
+  const { getByText, queryByText, getByTestId, queryByTestId, getByAltText } = render(toRender('1'));
+
+  expect(getByAltText('loading...')).toBeTruthy();
+
+  await waitForElementToBeRemoved(() => getByAltText('loading...'));
   expect(queryByText('Id:')).toBeTruthy();
   expect(queryByText('1')).toBeTruthy();
   expect(getByTestId('f-name').value).toBe('Test');

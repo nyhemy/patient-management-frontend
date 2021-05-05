@@ -194,30 +194,6 @@ const CreatePatient = () => {
 
     setLoading(true);
 
-    // axios.post('http://localhost:8080/patients',
-    //   {
-    //     firstName,
-    //     lastName,
-    //     ssn,
-    //     email,
-    //     street,
-    //     city,
-    //     state,
-    //     postal: zipcode,
-    //     age,
-    //     height,
-    //     weight,
-    //     insurance,
-    //     gender
-    //   },
-    //   {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       mode: 'cors',
-    //       Authorization: `Bearer ${sessionStorage.getItem('token')}`
-    //     }
-    //   })
-
     const postData = {
       firstName,
       lastName,
@@ -243,7 +219,6 @@ const CreatePatient = () => {
     });
 
     Promise.resolve(patientPost)
-      // eslint-disable-next-line no-unused-vars
       .then((response) => {
         if (response.ok) {
           setLoading(false);
@@ -251,7 +226,6 @@ const CreatePatient = () => {
         }
         throw new Error(response.status.toString());
       })
-      // eslint-disable-next-line no-unused-vars
       .catch((error) => {
         setLoading(false);
 

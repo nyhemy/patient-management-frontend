@@ -57,14 +57,6 @@ const encounterDataMock = JSON.stringify(
   }
 );
 
-// test('renders w/o crashing', () => {
-//   render(
-//     <Router history={history}>
-//       <EncounterDetails />
-//     </Router>
-//   );
-// });
-
 it('renders properly and matches snapshot', () => {
   render(toRender(1));
   expect(screen.queryByText('Encounter Details')).toBeTruthy();
@@ -75,7 +67,6 @@ it('renders properly and matches snapshot', () => {
 });
 
 it('checks if id is 404', async () => {
-  // need to change useParam, change from mock to spyOn
   fetch
     .mockResponse('{ "id": 1 }', { status: 404, headers: { 'content-type': 'application/json' } });
 
@@ -86,7 +77,6 @@ it('checks if id is 404', async () => {
 });
 
 it('checks if id is nan', async () => {
-  // need to change useParam, change from mock to spyOn
   fetch
     .mockResponse('{ "id": 1 }', { status: 400, headers: { 'content-type': 'application/json' } });
 

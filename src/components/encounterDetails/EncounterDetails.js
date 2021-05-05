@@ -116,22 +116,6 @@ const EncounterDetails = () => {
             setErrorMsg(`Error ${errorStatus}`);
             break;
         }
-        // if (error.response) {
-        //   if (error.response.status === 404) {
-        //     setLoading(false);
-        //     setNotFound(true);
-        //     setErrorMsg('404 Not Found');
-        //   } else {
-        //     setLoading(false);
-        //     // eslint-disable-next-line no-unused-expressions
-        //     (Number.isNaN(Number(id)) || Number.isNaN(Number(encounterId)))
-        //       ? setErrorMsg('404 Not Found')
-        //       : setErrorMsg('Oops something went wrong');
-        //   }
-        // } else if (error.request) {
-        //   setLoading(false);
-        //   setErrorMsg('Oops something went wrong');
-        // }
       });
   }, [encounterId, errorStatus, id]);
 
@@ -272,29 +256,6 @@ const EncounterDetails = () => {
 
     setLoading(true);
 
-    // axios.put(`http://localhost:8080/patients/${id}/encounters/${encounterId}`,
-    //   {
-    //     id: encounterId,
-    //     patientId: id,
-    //     notes,
-    //     visitCode,
-    //     provider,
-    //     billingCode,
-    //     icd10,
-    //     totalCost,
-    //     copay,
-    //     chiefComplaint,
-    //     pulse,
-    //     systolic,
-    //     diastolic,
-    //     date
-    //   },
-    //   {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       mode: 'cors'
-    //     }
-    //   })
     const putData = {
       id: encounterId,
       patientId: id,
@@ -321,7 +282,6 @@ const EncounterDetails = () => {
     });
 
     Promise.resolve(encounterPut)
-      // eslint-disable-next-line no-unused-vars
       .then((putResponse) => {
         if (putResponse.ok) {
           setLoading(false);

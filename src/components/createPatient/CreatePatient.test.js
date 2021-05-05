@@ -8,8 +8,6 @@ import userEvent from '@testing-library/user-event';
 import CreatePatient from './CreatePatient';
 import '@testing-library/jest-dom/extend-expect';
 
-// const history = createMemoryHistory();
-
 fetchMock.enableMocks();
 
 beforeEach(() => {
@@ -42,25 +40,6 @@ const fillInputData = () => {
   userEvent.type(screen.getByTestId('insurance'), 'Test');
   userEvent.selectOptions(screen.getByTestId('gender-select'), ['male']);
 };
-
-// const patientDataMock = JSON.stringify(
-//   {
-//     id: 1,
-//     firstName: "Test",
-//     lastName: "Last",
-//     email: "tl@gmail.com",
-//     street: "Yo Dr",
-//     city: "Heyvalley",
-//     state: "NH",
-//     postal: "00000",
-//     age: 23,
-//     height: 64,
-//     weight: 112,
-//     insurance: "Wooshoo Inc",
-//     gender: "female",
-//     ssn: "000-00-0000"
-//   }
-// );
 
 it('renders and matches snapshot', () => {
   render(<CreatePatient />);

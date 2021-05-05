@@ -8,8 +8,6 @@ import userEvent from '@testing-library/user-event';
 import CreateEncounter from './CreateEncounter';
 import '@testing-library/jest-dom/extend-expect';
 
-// const history = createMemoryHistory();
-
 fetchMock.enableMocks();
 
 beforeEach(() => {

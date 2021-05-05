@@ -5,7 +5,6 @@ import renderer from 'react-test-renderer';
 import fetchMock from 'jest-fetch-mock';
 import { MemoryRouter } from 'react-router-dom';
 import Patient from './Patient';
-// import Patients from '../patients/Patients';
 import '@testing-library/jest-dom/extend-expect';
 
 fetchMock.enableMocks();
@@ -50,21 +49,9 @@ it('shows generic error', async () => {
 
   const deleteButton = getByText('Delete');
   fireEvent.click(deleteButton);
-  // await waitFor(() => expect(screen.queryByText('Oops something went wrong')).toBeTruthy());
   await waitFor(() => getByText('Oops something went wrong'));
   expect(screen.queryByText('Oops something went wrong')).toBeTruthy();
 });
-
-// it('shows catch error', async () => {
-//   fetch.mockResponseOnce('{ "id": 1 }', { status: 500, headers: { 'content-type': 'giberish' } });
-//   const { getByText, queryByText } = render(<Patient />);
-
-//   const deleteButton = getByText('Delete');
-//   fireEvent.click(deleteButton);
-//   // await waitFor(() => expect(screen.queryByText('Oops something went wrong')).toBeTruthy());
-//   await waitFor(() => getByText('Oops something went haywire'));
-//   expect(screen.queryByText('Oops something went haywire')).toBeTruthy();
-// });
 
 it('deletes', () => {
   const { getByText, queryByText } = render(<Patient />);
@@ -84,38 +71,7 @@ it('redirects to patient details', () => {
   expect(mockHistoryPush).toHaveBeenCalledWith('/patients/undefined');
 });
 
-// const { getByText, queryByText } = render(<Patient />);
-
-//   fireEvent.click(getByText('Select'));
-//   expect(screen.queryByText('Name:', { exact: false })).toBeFalsy();
-//   expect(mockHistoryPush).toHaveBeenCalledWith('http://localhost:8080/patients/null');
-
 it('shows data and buttons', async () => {
-  // fetch.mockResponseOnce(JSON.stringify([
-  //   {
-  //     id: 1,
-  //     firstName: "Test",
-  //     lastName: "Last",
-  //     email: "tl@gmail.com",
-  //     street: "Yo Dr",
-  //     city: "Heyvalley",
-  //     state: "NH",
-  //     postal: "00000",
-  //     age: 23,
-  //     height: 64,
-  //     weight: 112,
-  //     insurance: "Wooshoo Inc",
-  //     gender: "female",
-  //     ssn: "000-00-0000"
-  //   }
-  // ]));
-  // const { getByText, queryByText } = render(<Patients />);
-  // await waitFor(() => getByText('Name: Test Last'));
-  // expect(screen.queryByText('Name: Test Last')).toBeTruthy();
-  // expect(screen.queryByText('Age: 23')).toBeTruthy();
-  // expect(screen.queryByText('Gender: female')).toBeTruthy();
-  // expect(screen.queryByText('Select')).toBeTruthy();
-  // expect(screen.queryByText('Delete')).toBeTruthy();
   const { getByText, queryByText } = render(<Patient />);
   await waitFor(() => getByText('Name: undefined undefined'));
   expect(screen.queryByText('Name: undefined undefined')).toBeTruthy();

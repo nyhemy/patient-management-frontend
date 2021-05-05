@@ -5,9 +5,6 @@ import styles from './CreateEncounter.module.css';
 import {
   visitCodeRegex, billingCodeRegex, icd10Regex, dateRegex
 } from '../Constants';
-// import { get } from '../Requests';
-
-// const axios = require('axios').default;
 
 /**
  * Component containing form for curation of new Encounter
@@ -58,8 +55,7 @@ const CreateEncounter = () => {
     }
 
     setLoading(true);
-    // get(`http://localhost:8080/patients/${id}`)
-    //   // eslint-disable-next-line no-unused-vars
+
     const patientsRequest = fetch(`http://localhost:8080/patients/${id}`, {
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -92,20 +88,6 @@ const CreateEncounter = () => {
             setErrorMsg(`Error: ${error.message}`);
             break;
         }
-        //   if (error.message === '404') {
-        //     setLoading(false);
-        //     setNotFound(true);
-        //     setErrorMsg('404 Patient Not Found');
-        //   } else {
-        //     setLoading(false);
-        //     // eslint-disable-next-line no-unused-expressions
-        // eslint-disable-next-line max-len
-        //     Number.isNaN(Number(id)) ? setErrorMsg('404 Patient Not Found') : setErrorMsg('Oops something went wrong');
-        //   }
-        // } else if (error.request) {
-        //   setLoading(false);
-        //   setErrorMsg('Oops something went wrong');
-        // }
       });
   }, [id]);
 
@@ -246,29 +228,6 @@ const CreateEncounter = () => {
 
     setLoading(true);
 
-    // axios.post(`http://localhost:8080/patients/${id}/encounters`,
-    //   {
-    //     patientId: id,
-    //     notes,
-    //     visitCode,
-    //     provider,
-    //     billingCode,
-    //     icd10,
-    //     totalCost,
-    //     copay,
-    //     chiefComplaint,
-    //     pulse,
-    //     systolic,
-    //     diastolic,
-    //     date
-    //   },
-    //   {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       mode: 'cors'
-    //     }
-    //   })
-
     const postData = {
       patientId: id,
       notes,
@@ -294,7 +253,6 @@ const CreateEncounter = () => {
     });
 
     Promise.resolve(encounterPost)
-      // eslint-disable-next-line no-unused-vars
       .then((response) => {
         if (response.ok) {
           setLoading(false);
@@ -302,8 +260,7 @@ const CreateEncounter = () => {
         }
         throw new Error(response.status.toString());
       })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
         setErrorMsg('Oops something went wrong');
       });

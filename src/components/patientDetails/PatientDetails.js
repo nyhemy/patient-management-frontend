@@ -28,7 +28,6 @@ const PatientDetails = () => {
   const [errorStatus, setErrorStatus] = useState('');
 
   // state used to store encounters retrieved from database
-  // eslint-disable-next-line no-unused-vars
   const [encounters, setEncounters] = useState([]);
 
   // states used to store form input
@@ -64,20 +63,9 @@ const PatientDetails = () => {
   /**
    * Checks if id is valid and retrieves specific patient/encounters for the patient from database
    */
-  // useEffect(() => {
-  //   if (Number.isNaN(Number(id))) {
-  //     setNotFound(true);
-  //     setErrorMsg('404 Not Found');
-  //   }
-  // }, [id]);
 
   useEffect(() => {
     setLoading(true);
-    // eslint-disable-next-line no-unused-vars
-    // eslint-disable-next-line prefer-const
-
-    // get(`http://localhost:8080/patients/${id}`)
-
     const patientsRequest = fetch(`http://localhost:8080/patients/${id}`, {
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -108,8 +96,7 @@ const PatientDetails = () => {
               setLoading(false);
               setEncounters(encounterData);
             })
-            // eslint-disable-next-line no-unused-vars
-            .catch((error) => {
+            .catch(() => {
               setLoading(false);
               setErrorMsg('Error with encounter');
             });
@@ -119,34 +106,9 @@ const PatientDetails = () => {
         setNotFound(true);
         setErrorStatus(patientsResponse.status);
         throw new Error(patientsResponse.status.toString());
-        // switch (patientsResponse.status) {
-        //   case 404:
-        //     setNotFound(true);
-        //     setErrorStatus(404);
-        //     break;
-        //   default:
-        //     setNotFound(true);
-        //     break;
-        // }
-
-        // if (patientsResponse.status === 404) {
-        //   setLoading(false);
-        //   setNotFound(true);
-        //   setErrorMsg('404 Not Found');
-        // } else {
-        //   setLoading(false);
-        //   // eslint-disable-next-line no-unused-expressions
-        //   Number.isNaN(Number(id)) ? setErrorMsg('404 Not Found') : setErrorMsg('Oops');
-        // }
-        // else if (error.request) {
-        //   setLoading(false);
-        //   setErrorMsg('Oops something went wrong');
-        // }
       })
       .then((responseData) => {
         const res = responseData;
-        // console.log(res);
-        // console.log(`firstName: ${res.firstName}`);
 
         setFirstName(res.firstName);
         setLastName(res.lastName);
@@ -165,9 +127,6 @@ const PatientDetails = () => {
       .catch(() => {
         setLoading(false);
 
-        // eslint-disable-next-line no-unused-expressions
-        // eslint-disable-next-line max-len
-        // Number.isNaN(Number(id)) ? setErrorMsg('Id not a number') : errorStatus ? setErrorMsg(`Error ${errorStatus}`) : setErrorMsg('Oops something went wrong');
         switch (errorStatus) {
           case 404:
             setErrorMsg('404 Not Found');
@@ -184,31 +143,6 @@ const PatientDetails = () => {
         }
       });
   }, [errorStatus, id]);
-
-  // useEffect(() => {
-  //   // eslint-disable-next-line no-unused-expressions
-  //   !notFound && get(`http://localhost:8080/patients/${id}/encounters`)
-  //     .then((response) => {
-  //       setLoading(false);
-  //       setEncounters(response.data);
-  //     })
-  //     // eslint-disable-next-line no-unused-vars
-  //     .catch((error) => {
-  //       setLoading(false);
-  //       setErrorMsg('Oops 2');
-  //     });
-  // }, [id, notFound]);
-
-  // const getEncounter = () => get(`http://localhost:8080/patients/${id}/encounters`)
-  //   .then((response) => {
-  //     setLoading(false);
-  //     setEncounters(response.data);
-  //   })
-  //   // eslint-disable-next-line no-unused-vars
-  //   .catch((error) => {
-  //     setLoading(false);
-  //     setErrorMsg('Oops 2');
-  //   });
 
   /**
    * Redirects to patient creation component
@@ -376,30 +310,6 @@ const PatientDetails = () => {
 
     setLoading(true);
 
-    // axios.put(`http://localhost:8080/patients/${id}`,
-    //   {
-    //     id,
-    //     firstName,
-    //     lastName,
-    //     ssn,
-    //     email,
-    //     street,
-    //     city,
-    //     state,
-    //     postal: zipcode,
-    //     age,
-    //     height,
-    //     weight,
-    //     insurance,
-    //     gender
-    //   },
-    //   {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       mode: 'cors'
-    //     }
-    //   })
-
     const putData = {
       id,
       firstName,
@@ -426,22 +336,14 @@ const PatientDetails = () => {
     });
 
     Promise.resolve(patientPut)
-      // eslint-disable-next-line no-unused-vars
       .then((putResponse) => {
-        // console.log(putData);
-        // console.log(putResponse);
-        // if (putResponse.ok) {
-        //   return Promise.resolve(putResponse.json());
-        // }
-        // throw new Error(putResponse.status.toString());
         if (putResponse.ok) {
           setLoading(false);
           history.push('/patients');
         }
         throw new Error(putResponse.status.toString());
       })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
         setErrorMsg('PUT: Oops something went wrong');
       });

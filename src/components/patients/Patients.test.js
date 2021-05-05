@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render, screen, act, getByText, waitFor, getByAltText, queryByAltText } from '@testing-library/react';
+import { cleanup, render, screen, act, getByText, waitFor, getByAltText, queryByAltText, fireEvent } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 import renderer from 'react-test-renderer';
 import Patients from './Patients';
@@ -11,6 +11,36 @@ beforeEach(() => {
 });
 
 afterEach(cleanup);
+
+const mockHistoryPush = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
+
+const patientDataMock = JSON.stringify(
+  [
+    {
+      id: 1,
+      firstName: "Test",
+      lastName: "Last",
+      email: "tl@gmail.com",
+      street: "Yo Dr",
+      city: "Heyvalley",
+      state: "NH",
+      postal: "00000",
+      age: 23,
+      height: 64,
+      weight: 112,
+      insurance: "Wooshoo Inc",
+      gender: "female",
+      ssn: "000-00-0000"
+    }
+  ]
+);
 
 it('renders properly and matches snapshot', () => {
   render(<Patients />);
@@ -30,28 +60,23 @@ it('displays loading image on app start', () => {
 });
 
 it('loads patient data and create button', async () => {
-  fetch.mockResponse(JSON.stringify([
-    {
-      id: 1,
-      firstName: "Test",
-      lastName: "Last",
-      email: "tl@gmail.com",
-      street: "Yo Dr",
-      city: "Heyvalley",
-      state: "NH",
-      postal: "00000",
-      age: 23,
-      height: 64,
-      weight: 112,
-      insurance: "Wooshoo Inc",
-      gender: "female",
-      ssn: "000-00-0000"
-    }
-  ]));
+  fetch.mockResponse(patientDataMock);
+
   const { getByText, queryByText } = render(<Patients />);
   await waitFor(() => getByText('Name: Test Last'));
   expect(screen.queryByText('Name: Test Last')).toBeTruthy();
   expect(screen.queryByText('Create')).toBeTruthy();
+});
+
+it('redirects to patient create', async () => {
+  fetch.mockResponse(patientDataMock);
+
+  const { getByText, queryByText, getByTestId, getByAltText } = render(<Patients />);
+
+  await waitFor(() => getByText('Patients'));
+  const selectButton = getByText('Create');
+  fireEvent.click(selectButton);
+  expect(mockHistoryPush).toHaveBeenCalledWith('/patients/create');
 });
 
 it('show error message when fetch error occurs', async () => {
@@ -61,32 +86,3 @@ it('show error message when fetch error occurs', async () => {
   await waitFor(() => getByText('Oops something went wrong'));
   expect(screen.queryByText('Oops something went wrong')).toBeTruthy();
 });
-
-// global.fetch = jest.fn(() =>
-//   Promise.resolve({
-//     json: () =>
-//       Promise.resolve([{
-//         id: 1,
-//         firstName: "Test",
-//         lastName: "Last",
-//         email: "tl@gmail.com",
-//         street: "Yo Dr",
-//         city: "Heyvalley",
-//         state: "NH",
-//         postal: "00000",
-//         age: 23,
-//         height: 64,
-//         weight: 112,
-//         insurance: "Wooshoo Inc",
-//         gender: "female",
-//         ssn: "000-00-0000"
-//       }])
-//   })
-// );
-
-// describe("Patients", () => {
-//   it("loads patient data on mount", async () => {
-//     await act(async () => render(<Patients />));
-//     expect(screen.getByText("Name: Jane Doe")).toBeInTheDocument();
-//   });
-// });
