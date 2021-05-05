@@ -50,7 +50,6 @@ const fillInputData = () => {
   userEvent.type(screen.getByTestId('pulse'), '1');
   userEvent.type(screen.getByTestId('systolic'), '1');
   userEvent.type(screen.getByTestId('diastolic'), '1');
-  // userEvent.type(screen.getByTestId('date'), '10102015');
   const input = screen.getByTestId('date');
   fireEvent.change(input, { target: { value: '2015-10-10' } });
 };
@@ -82,7 +81,6 @@ it('updates encounter data', async () => {
 });
 
 it('checks if id is 404', async () => {
-  // need to change useParam, change from mock to spyOn
   fetch
     .mockResponse('{ "id": 1 }', { status: 404, headers: { 'content-type': 'application/json' } });
 
@@ -93,7 +91,6 @@ it('checks if id is 404', async () => {
 });
 
 it('checks if id is nan', async () => {
-  // need to change useParam, change from mock to spyOn
   fetch
     .mockResponse('{ "id": 1 }', { status: 400, headers: { 'content-type': 'application/json' } });
 
@@ -132,25 +129,3 @@ it('tests if input error messages appear', async () => {
   expect(queryByText('Must be valid copay')).toBeTruthy();
   expect(queryByText('Must be valid date')).toBeTruthy();
 });
-
-// test('component matches snapshot', () => {
-//   const component = renderer.create(<CreateEncounter />);
-//   const tree = component.toJSON();
-
-//   expect(tree).toMatchSnapshot();
-// });
-
-// test('verify that form invalidates', () => {
-//   const { getByText } = render(<Router history={history}><CreateEncounter /></Router>);
-
-//   fireEvent.click(getByText('Create'));
-
-//   expect(getByText('Must be valid visit code')).toBeInTheDocument();
-//   expect(getByText('Must be valid billing code')).toBeInTheDocument();
-//   expect(getByText('Must be valid provider')).toBeInTheDocument();
-//   expect(getByText('Must be valid total cost')).toBeInTheDocument();
-//   expect(getByText('Must be valid icd10')).toBeInTheDocument();
-//   expect(getByText('Must be valid chief complaint')).toBeInTheDocument();
-//   expect(getByText('Must be valid copay')).toBeInTheDocument();
-//   expect(getByText('Must be valid date')).toBeInTheDocument();
-// });
